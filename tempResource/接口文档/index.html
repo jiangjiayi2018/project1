@@ -1,0 +1,317 @@
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>文档</title>
+  <link href="./css/semantic/semantic.min.css" rel="stylesheet">
+  <link href="./css/markdown.css" rel="stylesheet">
+  <style>
+    body{padding-top:0;background:#f7f7f7}
+    body>.ui.container{width:100%;padding:0}
+    #project-title{background:#6e6e6e;width:100%;line-height:3.572rem;color:#fff;font-size:1.2rem}
+    #project-title .title-wrap{font-weight:700;padding:0 12px;width:100%;max-width:1366px!important;min-width:900px;margin:0 auto}
+    #project-title .left,#project-title right{display:inline-block}
+    #project-title .right{float:right}
+    #project-title .right .wiki-actions .menu{left:auto;right:0;margin-top:.4em!important}
+    #wiki-preview-container{width:100%;max-width:1366px!important;min-width:900px;padding:0;border:1px solid #e3e9ed;border-top:0}
+    #wiki-preview>.ui.segment{margin-top:0;padding:1rem;padding-left:0;border:0}
+    .hover-places{display:inline-block}
+    #page-detail{width:60%;margin:0 auto}
+    #page-detail .title{font-weight:700;font-size:24px;padding:12px 0;border-bottom:1px solid #ccc}
+    #page-detail .content{margin-top:15px}
+    .content p{word-wrap:break-word}
+    #wiki-parent,#wiki-title,#wikis{display:none}
+    .ui.grid{padding:0!important}
+    #ex-all{cursor:pointer;color:#537c8d}
+  </style>
+</head>
+<body>
+  <div class="ui container">
+    <div id="project-title">
+      <div class="title-wrap">
+        <div class="left">
+          <i class="icon eye"></i>
+          文档预览:
+          newyear2020
+        </div>
+        <div class="right">
+          Export by Gitee
+        </div>
+      </div>
+    </div>
+
+    <div class="ui container" id="wiki-preview-container">
+      <div id="wiki-preview">
+        <div class="ui segment">
+          <div id="page-detail" class="markdown-body">
+            <div class='title'>Home</div><div class='content'><h1>
+<a id="接口说明" class="anchor" href="#%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E"></a>接口说明</h1>
+<hr>
+<blockquote>
+<p>测试接口域名：<a href="http://h5.heniw.com/newyear2019/">http://h5.heniw.com/newyear2019/</a></p>
+</blockquote>
+<blockquote>
+<p>正式接口域名：<a href="http://h5.heniw.com/newyear2019/">http://h5.heniw.com/newyear2019/</a></p>
+</blockquote>
+<blockquote>
+<p>接口中HOST 指上面域名路径</p>
+</blockquote>
+<blockquote>
+<p>接口均为json格式，get接口支持jsonp</p>
+</blockquote>
+<blockquote>
+<p>接口请求中说明（需登录）接口均有可能返回1001未登录错误码</p>
+</blockquote>
+<h3>
+<a id="接口基本结构" class="anchor" href="#%E6%8E%A5%E5%8F%A3%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"></a>接口基本结构</h3>
+<pre lang="javascript" class="javascript"><code>{
+    "status":200,  //接口状态码
+    "msg":“提示信息”,  //提示信息
+    "data":[ ]  //接口数据值
+}
+</code></pre>
+<h3>
+<a id="常用错误码status取值" class="anchor" href="#%E5%B8%B8%E7%94%A8%E9%94%99%E8%AF%AF%E7%A0%81status%E5%8F%96%E5%80%BC"></a>常用错误码status取值</h3>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>接口请求成功</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>错误 msg为错误提示信息</td>
+</tr>
+<tr>
+<td>-2</td>
+<td>图片验证码错误</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>未登录错误码(涉及到用户需登录的接口均可能返回)</td>
+</tr>
+</tbody>
+</table></div><div class='title'>公共接口</div><div class='content'><h3>
+<a id="公共接口" class="anchor" href="#%E5%85%AC%E5%85%B1%E6%8E%A5%E5%8F%A3"></a>公共接口</h3>
+<hr>
+<blockquote>
+<p>包含微信jssdk等接口；</p>
+</blockquote>
+<h3>
+<a id="微信jssdk接口" class="anchor" href="#%E5%BE%AE%E4%BF%A1jssdk%E6%8E%A5%E5%8F%A3"></a>微信jssdk接口</h3>
+<ul>
+<li>接口地址：HOST+/weixin/jssdk</li>
+<li>请求方式：get</li>
+<li>请求参数：无</li>
+<li>接口返回：json/jsonp</li>
+</ul>
+<pre lang="javascript" class="javascript"><code>//返回jssdk wx.config内除jsApiList的所有参数，前端可根据接口需要自行添加方法
+{
+  "status": 200,
+  "msg": "success",
+  "data": {
+    "appId": "wx02cc7021a3c55e5e",
+    "timestamp": "1494847359",
+    "nonceStr": "O7MMoxeJVu",
+    "signature": "31e09f5c0d04c89b98b8b345dc832a60c7572a6d"
+  }
+}
+</code></pre>
+<h3>
+<a id="事件上报接口" class="anchor" href="#%E4%BA%8B%E4%BB%B6%E4%B8%8A%E6%8A%A5%E6%8E%A5%E5%8F%A3"></a>事件上报接口</h3>
+<ul>
+<li>
+<p>请求地址：<a href="http://HOST/event/do">http://HOST/event/do</a></p>
+</li>
+<li>
+<p>请求方式：get</p>
+</li>
+<li>
+<p>请求参数：</p>
+<ul>
+<li>uid 用户uid</li>
+<li>act 事件动作（说明如下）</li>
+</ul>
+</li>
+<li>
+<p>事件取值待定</p>
+</li>
+<li>
+<p>请求说明：</p>
+<ul>
+<li>前端只需请求一次接口，无需关注返回结果；</li>
+</ul>
+</li>
+</ul>
+<h3>
+<a id="活动信息接口" class="anchor" href="#%E6%B4%BB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3"></a>活动信息接口</h3>
+<ul>
+<li>接口地址：HOST+/vote/info</li>
+<li>请求参数：
+无</li>
+<li>请求方式：get/post</li>
+<li>请求返回：（json/jsonp）
+<ul>
+<li>status 200 表示成功，其他表示失败</li>
+<li>需要用户活动结束时间，开奖页面使用，需要用到分享信息</li>
+</ul>
+</li>
+</ul></div><div class='title'>用户相关接口</div><div class='content'><h3>
+<a id="用户登录接口" class="anchor" href="#%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3"></a>用户登录接口</h3>
+<ul>
+<li>跳转地址：HOST+/auth/login?returnUrl=回跳前端地址（http开头）</li>
+<li>登录说明：
+<ul>
+<li>前端请求接口遇到status错误码为1001(用户未登录)时，将登录成功回跳的url encodeURI 作为returnUrl参数跳转到上面地址，后端在完成微信登录后会回跳到returnUrl , 若不传returnUrl,后端会取请求来路的地址为回跳地址。</li>
+<li>在页面跳转过程中，后端会完成登录并保存用户信息到cookie中</li>
+</ul>
+</li>
+</ul>
+<h3>
+<a id="用户个人详细信息接口需登录" class="anchor" href="#%E7%94%A8%E6%88%B7%E4%B8%AA%E4%BA%BA%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E9%9C%80%E7%99%BB%E5%BD%95"></a>用户个人详细信息接口(需登录)</h3>
+<ul>
+<li>接口地址：HOST+/user/info</li>
+<li>请求参数：无</li>
+<li>请求方式：get</li>
+<li>请求返回：（json/jsonp）</li>
+</ul>
+<pre lang="javascript" class="javascript"><code>//未登录返回
+{
+    'status':1001,  //状态码（任意接口出现1001都必须执行登录流程！！！）
+    'msg':'用户未登录',  //提示信息
+    'data':''
+}
+
+//已登录返回
+{
+status: 200,
+msg: "success",
+data: {
+   uid:1, //用户uid
+   subscribe: 1,  //是否关注（忽略）
+   headimgurl: "http://wx.qlogo.cn/mmopen/coGA1E1ZLr7F2hRwqVaiaz8iaYfV4oS58PpQKib3iakCK0MEoByRlDE05AfxPu8Qt75ybRv3tA8MW2qZAaWZc2v51WRicXNoOsxqt/0",  //头像地址
+   nickname: "wesley wu",  //昵称
+   votes:10,  //用户可投掷次数
+   mark:""  //前端游戏记录  
+}
+}
+</code></pre></div><div class='title'>游戏相关接口</div><div class='content'><h3>
+<a id="游戏开始接口" class="anchor" href="#%E6%B8%B8%E6%88%8F%E5%BC%80%E5%A7%8B%E6%8E%A5%E5%8F%A3"></a>游戏开始接口</h3>
+<ul>
+<li>接口地址：HOST+/game/start</li>
+<li>请求参数：无</li>
+<li>请求方式：get/post</li>
+<li>请求返回：（json/jsonp）</li>
+</ul>
+<pre lang="javascrpt" class="javascrpt"><code>{
+status: 200,  //状态码。若次数不够会有提示信息在msg中
+msg: "success",
+data: { //活动信息
+id: "kw1GWP2oi5Rl",   //游戏id  游戏结束和抽奖接口需要提交
+}
+}
+</code></pre>
+<h3>
+<a id="游戏结束接口" class="anchor" href="#%E6%B8%B8%E6%88%8F%E7%BB%93%E6%9D%9F%E6%8E%A5%E5%8F%A3"></a>游戏结束接口</h3>
+<ul>
+<li>接口地址：HOST+/game/end</li>
+<li>请求参数：
+<ul>
+<li>id  游戏id</li>
+<li>mark 用户当前游戏状态  请传递字符串，服务端在user/info接口下发游戏状态</li>
+<li>isAdd 是否增加游戏次数  如果要增加游戏次数 isAdd传递1</li>
+</ul>
+</li>
+<li>请求方式：get/post</li>
+<li>请求返回：（json/jsonp）</li>
+<li>接口返回200表示成功，非200表示失败</li>
+</ul>
+<h3>
+<a id="抽奖接口在gameend后可抽奖" class="anchor" href="#%E6%8A%BD%E5%A5%96%E6%8E%A5%E5%8F%A3%E5%9C%A8gameend%E5%90%8E%E5%8F%AF%E6%8A%BD%E5%A5%96"></a>抽奖接口(在game/end后可抽奖)</h3>
+<ul>
+<li>接口地址：HOST+/gift/lottery</li>
+<li>请求参数：
+<ul>
+<li>id 游戏中game/start  返回的id字符串</li>
+</ul>
+</li>
+<li>请求方式：get/post</li>
+<li>请求返回：（json/jsonp）
+<ul>
+<li>status 200 表示成功，已中奖，其他表示失败，若中奖了data中会返回  userGiftId&gt;0表示中奖</li>
+<li>为保证程序运行 status=2003表示谢谢参与</li>
+<li>每个id只能抽奖一次</li>
+</ul>
+</li>
+</ul>
+<pre lang="javascript" class="javascript"><code>{
+  status:200,
+  msg:"success",
+  data:{
+     userGiftId:10,  //使用该值可用户奖品领取接口，和填写表单接口
+     giftInfo:{
+        giftId:1,  //奖品id
+        name:"门票", //奖品门票
+        image:"http://image.jpg",  //奖品图片
+        type:1 //奖品类型  1为实物，需要填写表单，2为卡券需用jssdk调起领取卡券
+     },
+     cardInfo:{
+        cardId:"",  //微信卡券id，type=2时有值
+        cardExt:{},  //调起微信卡券需要参数
+     }
+  }
+}
+</code></pre>
+<h3>
+<a id="兑换奖品接口实物在填写信息时请求卡券在用户领取卡券时请求" class="anchor" href="#%E5%85%91%E6%8D%A2%E5%A5%96%E5%93%81%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%89%A9%E5%9C%A8%E5%A1%AB%E5%86%99%E4%BF%A1%E6%81%AF%E6%97%B6%E8%AF%B7%E6%B1%82%E5%8D%A1%E5%88%B8%E5%9C%A8%E7%94%A8%E6%88%B7%E9%A2%86%E5%8F%96%E5%8D%A1%E5%88%B8%E6%97%B6%E8%AF%B7%E6%B1%82"></a>兑换奖品接口（实物在填写信息时请求，卡券在用户领取卡券时请求）</h3>
+<ul>
+<li>接口地址：HOST+/gift/success</li>
+<li>请求参数：
+name  姓名(实物奖品传递)
+mobile  手机号(实物奖品传递)
+email 邮箱(实物奖品传递)
+userGiftId  用户奖品id  在gift/lottery会返回  在 gift/list 也会返回</li>
+<li>请求方式：get/post</li>
+<li>请求返回：（json/jsonp）
+<ul>
+<li>status 200 表示成功，其他表示失败</li>
+</ul>
+</li>
+</ul>
+<h3>
+<a id="用户奖品列表接口" class="anchor" href="#%E7%94%A8%E6%88%B7%E5%A5%96%E5%93%81%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3"></a>用户奖品列表接口</h3>
+<ul>
+<li>接口地址：HOST+/gift/list</li>
+<li>请求参数：无</li>
+<li>请求方式：get/post</li>
+<li>请求返回：（json/jsonp）
+<ul>
+<li>status 200 表示成功，其他表示失败</li>
+<li>返回用户所有中奖记录  其中status表示是否提交；0表示未提交表单；2表示已提交表单</li>
+</ul>
+</li>
+</ul>
+<h3>
+<a id="卡券奖品拉取微信卡券在奖品列表通过usergiftid拉取未领取的卡券" class="anchor" href="#%E5%8D%A1%E5%88%B8%E5%A5%96%E5%93%81%E6%8B%89%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%8D%A1%E5%88%B8%E5%9C%A8%E5%A5%96%E5%93%81%E5%88%97%E8%A1%A8%E9%80%9A%E8%BF%87usergiftid%E6%8B%89%E5%8F%96%E6%9C%AA%E9%A2%86%E5%8F%96%E7%9A%84%E5%8D%A1%E5%88%B8"></a>卡券奖品拉取微信卡券(在奖品列表通过userGiftId拉取未领取的卡券)</h3>
+<ul>
+<li>接口地址：HOST+/gift/get</li>
+<li>请求参数：无</li>
+<li>请求方式：get/post</li>
+<li>请求返回：（json/jsonp）
+<ul>
+<li>返回与/gift/lottery返回一致</li>
+</ul>
+</li>
+</ul></div>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+</body>
+</html>
