@@ -1,0 +1,1 @@
+const FRAME_TIME: number = 30;
