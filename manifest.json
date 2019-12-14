@@ -10,22 +10,27 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
-		"bin-debug/adapter/Dictionary.js",
+		"bin-debug/adapter/EventDispatcher.js",
 		"bin-debug/AssetAdapter.js",
+		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/adapter/ArmatureAnimation.js",
 		"bin-debug/adapter/AssetsMgr.js",
 		"bin-debug/adapter/const.js",
-		"bin-debug/LoadingUI.js",
+		"bin-debug/adapter/Dictionary.js",
 		"bin-debug/adapter/DisplayUtil.js",
-		"bin-debug/adapter/EventDispatcher.js",
+		"bin-debug/GameHelp.js",
 		"bin-debug/adapter/Logger.js",
 		"bin-debug/adapter/Scheduler.js",
 		"bin-debug/adapter/SoundManager.js",
 		"bin-debug/adapter/Tween.js",
 		"bin-debug/adapter/UIWindow.js",
-		"bin-debug/adapter/Util.js"
+		"bin-debug/adapter/Util.js",
+		"bin-debug/common/TipView.js",
+		"bin-debug/gameMain/controller/GameMainController.js",
+		"bin-debug/gameMain/model/GridDataCell.js",
+		"bin-debug/gameMain/view/GameMainSceneView.js"
 	]
 }

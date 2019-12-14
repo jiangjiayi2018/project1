@@ -40,21 +40,20 @@ var LoadingUI = (function (_super) {
     __extends(LoadingUI, _super);
     function LoadingUI() {
         var _this = _super.call(this) || this;
-        _this.createView();
+        _this.skinName = "loading";
         return _this;
     }
-    LoadingUI.prototype.createView = function () {
-        this.textField = new egret.TextField();
-        this.addChild(this.textField);
-        this.textField.y = 300;
-        this.textField.width = 480;
-        this.textField.height = 100;
-        this.textField.textAlign = "center";
+    LoadingUI.prototype.childrenCreated = function () {
+        _super.prototype.childrenCreated.call(this);
+        this.init();
+    };
+    LoadingUI.prototype.init = function () {
+        this.loadBar.width = 0;
     };
     LoadingUI.prototype.onProgress = function (current, total) {
-        this.textField.text = "Loading..." + current + "/" + total;
+        this.loadBar.width = current / total * 493;
     };
     return LoadingUI;
-}(egret.Sprite));
+}(eui.Component));
 __reflect(LoadingUI.prototype, "LoadingUI", ["RES.PromiseTaskReporter"]);
 //# sourceMappingURL=LoadingUI.js.map

@@ -1,8 +1,20 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,other_10_png,other_11_png,other_12_png,other_14_png,other_15_png,other_13_png,other_51_png,other_16_png,other_52_png,other_53_png,other_54_png,other_55_png,other_1_png,other_2_png,other_3_png,other_4_png,other_5_png,other_6_png,other_7_png,other_8_png,other_9_png,mainBg_4_png,mainBg_1_png,mainBg_2_png,mainBg_3_png,ss1_tex_png,ss1_ske_json,ss1_tex_json,grid_json,other_17_jpg",
 			"name": "preload"
+		},
+		{
+			"keys": "loading_bg_png,loading_1_png,loading_2_png",
+			"name": "loading"
+		},
+		{
+			"keys": "ss1_ske_json,ss1_tex_json,ss1_tex_png",
+			"name": "ss1_ske_db"
+		},
+		{
+			"keys": "baoxiang_tex_json,baoxiang_ske_json,baoxiang_tex_png",
+			"name": "baoxiang_ske_db"
 		}
 	],
 	"resources": [
@@ -132,9 +144,189 @@
 			"name": "egret_icon_png"
 		},
 		{
-			"name": "description_json",
+			"url": "config/description.json",
 			"type": "json",
-			"url": "config/description.json"
+			"name": "description_json"
+		},
+		{
+			"url": "loading/loading_bg.png",
+			"type": "image",
+			"name": "loading_bg_png"
+		},
+		{
+			"url": "loading/loading_1.png",
+			"type": "image",
+			"name": "loading_1_png"
+		},
+		{
+			"url": "loading/loading_2.png",
+			"type": "image",
+			"name": "loading_2_png"
+		},
+		{
+			"url": "other/other_10.png",
+			"type": "image",
+			"name": "other_10_png"
+		},
+		{
+			"url": "other/other_11.png",
+			"type": "image",
+			"name": "other_11_png"
+		},
+		{
+			"url": "other/other_12.png",
+			"type": "image",
+			"name": "other_12_png"
+		},
+		{
+			"url": "other/other_14.png",
+			"type": "image",
+			"name": "other_14_png"
+		},
+		{
+			"url": "other/other_15.png",
+			"type": "image",
+			"name": "other_15_png"
+		},
+		{
+			"url": "other/other_13.png",
+			"type": "image",
+			"name": "other_13_png"
+		},
+		{
+			"url": "other/other_51.png",
+			"type": "image",
+			"name": "other_51_png"
+		},
+		{
+			"url": "other/other_16.png",
+			"type": "image",
+			"name": "other_16_png"
+		},
+		{
+			"url": "other/other_52.png",
+			"type": "image",
+			"name": "other_52_png"
+		},
+		{
+			"url": "other/other_53.png",
+			"type": "image",
+			"name": "other_53_png"
+		},
+		{
+			"url": "other/other_54.png",
+			"type": "image",
+			"name": "other_54_png"
+		},
+		{
+			"url": "other/other_55.png",
+			"type": "image",
+			"name": "other_55_png"
+		},
+		{
+			"url": "other/other_1.png",
+			"type": "image",
+			"name": "other_1_png"
+		},
+		{
+			"url": "other/other_2.png",
+			"type": "image",
+			"name": "other_2_png"
+		},
+		{
+			"url": "other/other_3.png",
+			"type": "image",
+			"name": "other_3_png"
+		},
+		{
+			"url": "other/other_4.png",
+			"type": "image",
+			"name": "other_4_png"
+		},
+		{
+			"url": "other/other_5.png",
+			"type": "image",
+			"name": "other_5_png"
+		},
+		{
+			"url": "other/other_6.png",
+			"type": "image",
+			"name": "other_6_png"
+		},
+		{
+			"url": "other/other_7.png",
+			"type": "image",
+			"name": "other_7_png"
+		},
+		{
+			"url": "other/other_8.png",
+			"type": "image",
+			"name": "other_8_png"
+		},
+		{
+			"url": "other/other_9.png",
+			"type": "image",
+			"name": "other_9_png"
+		},
+		{
+			"url": "mainBg/mainBg_4.png",
+			"type": "image",
+			"name": "mainBg_4_png"
+		},
+		{
+			"url": "mainBg/mainBg_1.png",
+			"type": "image",
+			"name": "mainBg_1_png"
+		},
+		{
+			"url": "mainBg/mainBg_2.png",
+			"type": "image",
+			"name": "mainBg_2_png"
+		},
+		{
+			"url": "mainBg/mainBg_3.png",
+			"type": "image",
+			"name": "mainBg_3_png"
+		},
+		{
+			"url": "db/ss1_tex.png",
+			"type": "image",
+			"name": "ss1_tex_png"
+		},
+		{
+			"url": "db/ss1_ske.json",
+			"type": "json",
+			"name": "ss1_ske_json"
+		},
+		{
+			"url": "db/ss1_tex.json",
+			"type": "json",
+			"name": "ss1_tex_json"
+		},
+		{
+			"url": "config/grid.json",
+			"type": "json",
+			"name": "grid_json"
+		},
+		{
+			"url": "db/baoxiang_tex.png",
+			"type": "image",
+			"name": "baoxiang_tex_png"
+		},
+		{
+			"url": "db/baoxiang_ske.json",
+			"type": "json",
+			"name": "baoxiang_ske_json"
+		},
+		{
+			"url": "db/baoxiang_tex.json",
+			"type": "json",
+			"name": "baoxiang_tex_json"
+		},
+		{
+			"url": "other/other_17.jpg",
+			"type": "image",
+			"name": "other_17_jpg"
 		}
 	]
 }

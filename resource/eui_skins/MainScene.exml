@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainScene" width="540" height="958" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="bgGroup" left="0" right="0" height="958" y="0" x="0">
+		<e:Group id="childBgGroup1" height="4353" y="107" left="0" right="0">
+		<e:layout>
+			<e:BasicLayout/>
+		</e:layout>
+		</e:Group>
+		<e:Group id="childBgGroup2" height="4353" y="392" left="0" right="0"/>
+	</e:Group>
+	<e:Image id="boat" source="other_4_png" x="160" y="685" anchorOffsetX="83.5" anchorOffsetY="94"/>
+	<e:Image id="playDiceBtn" source="other_1_png" x="256.3" y="57.94" anchorOffsetX="130.3" anchorOffsetY="54.55"/>
+</e:Skin>

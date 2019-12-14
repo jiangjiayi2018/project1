@@ -1,0 +1,100 @@
+{
+    "width": 915,
+    "SubTexture": [
+        {
+            "width": 496,
+            "y": 1,
+            "height": 258,
+            "name": "baoxiang/beiguang",
+            "x": 1
+        },
+        {
+            "width": 331,
+            "y": 1,
+            "height": 242,
+            "name": "baoxiang/baoxiang2",
+            "x": 499
+        },
+        {
+            "width": 332,
+            "y": 423,
+            "height": 126,
+            "name": "baoxiang/baoxiang1",
+            "x": 326
+        },
+        {
+            "width": 323,
+            "y": 261,
+            "height": 171,
+            "name": "baoxiang/baoxiang5",
+            "x": 1
+        },
+        {
+            "width": 358,
+            "y": 245,
+            "height": 176,
+            "name": "xxv",
+            "x": 499
+        },
+        {
+            "width": 309,
+            "y": 434,
+            "height": 85,
+            "name": "guang",
+            "x": 1
+        },
+        {
+            "y": 357,
+            "frameY": 0,
+            "frameWidth": 64,
+            "width": 63,
+            "frameX": -1,
+            "frameHeight": 64,
+            "height": 64,
+            "name": "baoxiang/xingguang",
+            "x": 326
+        },
+        {
+            "width": 81,
+            "y": 72,
+            "height": 68,
+            "name": "xiaobox5/xiaobox7",
+            "x": 832
+        },
+        {
+            "width": 81,
+            "y": 1,
+            "height": 69,
+            "name": "xiaobox4",
+            "x": 832
+        },
+        {
+            "width": 107,
+            "y": 261,
+            "height": 94,
+            "name": "xiaobox1",
+            "x": 326
+        },
+        {
+            "y": 357,
+            "frameY": 0,
+            "frameWidth": 64,
+            "width": 63,
+            "frameX": -1,
+            "frameHeight": 64,
+            "height": 64,
+            "name": "xiaobox3",
+            "x": 391
+        },
+        {
+            "width": 44,
+            "y": 261,
+            "height": 24,
+            "name": "xiaobox5/xiaobox6",
+            "x": 435
+        }
+    ],
+    "height": 551,
+    "name": "baoxiang",
+    "imagePath": "baoxiang_tex.png"
+}
