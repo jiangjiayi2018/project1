@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="InputViewSkin" width="540" height="958" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="other_25_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="backBtn" source="other_6_png" x="72.1" y="69.77" anchorOffsetX="34.85" anchorOffsetY="33.33"/>
+	<e:Group horizontalCenter="0" verticalCenter="-74">
+		<e:Image y="0" source="other_23_png" x="55"/>
+		<e:Image source="other_18_png" y="89" scale9Grid="77,33,462,50" anchorOffsetX="0" width="406" anchorOffsetY="0" height="80" x="0"/>
+		<e:Image source="other_18_png" y="197" scale9Grid="77,33,462,50" anchorOffsetX="0" width="406" anchorOffsetY="0" height="80" x="0"/>
+		<e:Image source="other_18_png" y="308" scale9Grid="77,33,462,50" anchorOffsetX="0" width="406" anchorOffsetY="0" height="80" x="0"/>
+		<e:EditableText id="nameInput" width="385" height="80" text="" y="89.97" prompt="姓名" promptColor="0xffffff" anchorOffsetY="0" anchorOffsetX="0" textAlign="left" verticalAlign="middle" x="11"/>
+		<e:EditableText id="phoneInput" width="385" height="80" text="" y="197" prompt="电话" promptColor="0xFFFFFF" anchorOffsetY="0" anchorOffsetX="0" textAlign="left" verticalAlign="middle" x="11"/>
+		<e:EditableText id="mailInput" width="385" height="80" text="" y="308" prompt="邮件" promptColor="0xFFFFFF" anchorOffsetY="0" anchorOffsetX="0" textAlign="left" verticalAlign="middle" x="11"/>
+	</e:Group>
+	<e:Image id="handleBtn" anchorOffsetX="130.3" anchorOffsetY="60.61" horizontalCenter="0" verticalCenter="235.5" source="other_27_png"/>
+</e:Skin>

@@ -156,8 +156,7 @@ var Main = (function (_super) {
     };
     /**進入游戲*/
     Main.prototype.gotoGameScene = function () {
-        var view = new GameMainSceneView();
-        adapter.UIWindow.getInstance().addView(view);
+        GameMainController.getInstance().showMainView();
     };
     return Main;
 }(eui.UILayer));

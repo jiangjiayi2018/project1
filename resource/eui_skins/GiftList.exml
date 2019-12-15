@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GiftList" width="540" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="other_25_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image source="other_6_png" x="88.1" y="69.77" id="backBtn" anchorOffsetX="34.85" anchorOffsetY="33.33"/>
+	<e:Group horizontalCenter="0" verticalCenter="-30">
+		<e:Image x="96" y="0" anchorOffsetX="0" source="other_26_png"/>
+		<e:Image source="other_24_png" x="185.67" y="11"/>
+		<e:Image source="other_20_png" y="102.56" scaleX="0.7" scaleY="0.7" x="0"/>
+		<e:Scroller width="386" height="504" y="130.56" anchorOffsetX="0" anchorOffsetY="0" x="31">
+			<e:List id="contentList"/>
+		</e:Scroller>
+	</e:Group>
+</e:Skin>

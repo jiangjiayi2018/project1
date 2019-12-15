@@ -93,8 +93,7 @@ class Main extends eui.UILayer {
 
     /**進入游戲*/
     private gotoGameScene(): void{
-        let view = new GameMainSceneView();
-        adapter.UIWindow.getInstance().addView(view);
+        GameMainController.getInstance().showMainView();
     }
 
     // /**

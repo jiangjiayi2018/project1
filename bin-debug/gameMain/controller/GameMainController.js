@@ -11,6 +11,42 @@ var GameMainController = (function () {
         }
         return GameMainController._instance;
     };
+    /**显示游戏主界面*/
+    GameMainController.prototype.showMainView = function () {
+        adapter.UIWindow.getInstance().addView(new GameMainSceneView());
+        if (this.isShowRulePop()) {
+            this.showRulePopView();
+        }
+    };
+    /**显示规则弹框*/
+    GameMainController.prototype.showRulePopView = function () {
+        adapter.UIWindow.getInstance().addView(new RulePopView(), 1 /* TIP */);
+    };
+    /**显示礼物事件弹框*/
+    GameMainController.prototype.showGiftPopView = function () {
+        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+    };
+    /**显示卡卷弹框*/
+    GameMainController.prototype.showCardGiftView = function () {
+        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+    };
+    /**显示门票弹框*/
+    GameMainController.prototype.showTickGiftView = function () {
+        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+    };
+    /**显示表单信息弹框*/
+    GameMainController.prototype.showInputView = function () {
+        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+    };
+    /**显示礼品列表弹框*/
+    GameMainController.prototype.showGiftListView = function () {
+        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+    };
+    /**判断是否需要显示规则弹框*/
+    GameMainController.prototype.isShowRulePop = function () {
+        var alreadyShow = egret.localStorage.getItem("alreadyShowRuelPop");
+        return !alreadyShow;
+    };
     /**初始化格子所需的数据*/
     GameMainController.prototype.initGridData = function () {
         var gridObj = RES.getRes("grid_json");

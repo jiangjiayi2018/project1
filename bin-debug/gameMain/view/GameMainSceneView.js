@@ -48,6 +48,8 @@ var GameMainSceneView = (function (_super) {
     __extends(GameMainSceneView, _super);
     function GameMainSceneView() {
         var _this = _super.call(this) || this;
+        /**骰子动画*/
+        _this.ani = null;
         /**当前所在的格子id*/
         _this.curGridId = 50;
         /**船当前所在的格子所属的容器ID号：1,2*/
@@ -67,7 +69,7 @@ var GameMainSceneView = (function (_super) {
         this.addEvent();
     };
     GameMainSceneView.prototype.addEvent = function () {
-        this.playDiceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+        this.addSomeEvent();
     };
     GameMainSceneView.prototype.initData = function () {
         GameMainController.getInstance().initGridData();
@@ -80,12 +82,15 @@ var GameMainSceneView = (function (_super) {
         this.setStateView();
     };
     GameMainSceneView.prototype.initStaticView = function () {
+        this.diceGroup.visible = false;
         adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn);
     };
     GameMainSceneView.prototype.initBg = function () {
         this.setGroupPos();
         this.addImgToGroup(this.childBgGroup1);
         this.addImgToGroup(this.childBgGroup2);
+        this.addGiftBoxToGroup(this.childBgGroup1);
+        this.addGiftBoxToGroup(this.childBgGroup2);
     };
     /**设置界面的元素位置状态*/
     GameMainSceneView.prototype.setStateView = function () {
@@ -112,6 +117,21 @@ var GameMainSceneView = (function (_super) {
             img.right = 0;
             group.addChild(img);
             posY += imgHeightArr[i];
+        }
+    };
+    /**添加礼品盒icon到背景上*/
+    GameMainSceneView.prototype.addGiftBoxToGroup = function (group) {
+        var gridDataArr = GameMainController.getInstance().gridDataArr;
+        for (var i = 0, leng = gridDataArr.length; i < leng; ++i) {
+            var gridData = gridDataArr[i];
+            if (gridData.gridEvent === 3 /* GIFT */) {
+                var img = new eui.Image("other_13_png");
+                img.x = gridData.posX;
+                img.y = gridData.posY;
+                img.width = img.height = 50;
+                img.anchorOffsetX = img.anchorOffsetY = img.width * 0.5;
+                group.addChild(img);
+            }
         }
     };
     /**检测背容器里面的背景图的位置是否需要调整*/
@@ -203,42 +223,65 @@ var GameMainSceneView = (function (_super) {
     };
     /**船只移动之后出发的事件*/
     GameMainSceneView.prototype.triggerEventHandle = function () {
-        var contrl = GameMainController.getInstance();
-        var eventId = contrl.gridDataArr[this.curGridId].gridEvent;
-        switch (eventId) {
-            case 1 /* FORWARD */:
-                {
-                    var gridNum = contrl.gridDataArr[this.curGridId].extra;
-                    var pathArr = contrl.getPathArr(this.curGridId, gridNum);
-                    this.excutePlayCycle(pathArr);
-                    break;
+        return __awaiter(this, void 0, void 0, function () {
+            var contrl, eventId, _a, gridNum, pathArr;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        contrl = GameMainController.getInstance();
+                        eventId = contrl.gridDataArr[this.curGridId].gridEvent;
+                        _a = eventId;
+                        switch (_a) {
+                            case 1 /* FORWARD */: return [3 /*break*/, 1];
+                            case 2 /* AGAIN */: return [3 /*break*/, 3];
+                            case 3 /* GIFT */: return [3 /*break*/, 5];
+                        }
+                        return [3 /*break*/, 6];
+                    case 1: return [4 /*yield*/, adapter.Scheduler.waitForTime(1000)];
+                    case 2:
+                        _b.sent();
+                        gridNum = contrl.gridDataArr[this.curGridId].extra;
+                        pathArr = contrl.getPathArr(this.curGridId, gridNum);
+                        this.boatMove(pathArr);
+                        return [3 /*break*/, 7];
+                    case 3: return [4 /*yield*/, adapter.Scheduler.waitForTime(1000)];
+                    case 4:
+                        _b.sent();
+                        this.clickBtnHandle();
+                        return [3 /*break*/, 7];
+                    case 5:
+                        {
+                            //todo
+                            this.addSomeEvent();
+                            return [3 /*break*/, 7];
+                        }
+                        _b.label = 6;
+                    case 6:
+                        {
+                            this.addSomeEvent();
+                        }
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
-            case 2 /* AGAIN */:
-                {
-                    this.clickBtnHandle();
-                    break;
-                }
-            case 3 /* GIFT */:
-                {
-                    //todo
-                    break;
-                }
-            default:
-                break;
-        }
+            });
+        });
     };
     /**触发一次投骰子的周期*/
     GameMainSceneView.prototype.excutePlayCycle = function (pathArr) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.showGridAni(pathArr.length)];
+                    case 0:
+                        this.cancelEvent();
+                        return [4 /*yield*/, this.showGridAni(pathArr.length)];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, adapter.Scheduler.waitForTime(100)];
                     case 2:
                         _a.sent();
-                        this.boatMove(pathArr);
+                        return [4 /*yield*/, this.boatMove(pathArr)];
+                    case 3:
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
@@ -247,10 +290,43 @@ var GameMainSceneView = (function (_super) {
     /**显示投骰子动画*/
     GameMainSceneView.prototype.showGridAni = function (num) {
         return __awaiter(this, void 0, void 0, function () {
+            var ani;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        ani = this.ani;
+                        if (!!this.ani) return [3 /*break*/, 2];
+                        ani = this.ani = new adapter.ArmatureAnimation();
+                        return [4 /*yield*/, ani.initWithName("ss1")];
+                    case 1:
+                        _a.sent();
+                        ani.x = this.width * 0.5;
+                        ani.y = this.height * 0.5 + 150;
+                        _a.label = 2;
+                    case 2:
+                        this.diceGroup.visible = true;
+                        this.diceGroup.addChild(ani);
+                        ani.setAnimation(0, num + "", 1);
+                        return [4 /*yield*/, ani.waitEvent(adapter.ArmatureAnimation.EVENT_COMPLETE)];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, adapter.Scheduler.waitForTime(350)];
+                    case 4:
+                        _a.sent();
+                        this.diceGroup.removeChild(ani);
+                        this.diceGroup.visible = false;
+                        return [2 /*return*/];
+                }
             });
         });
+    };
+    /**投骰子周期结束添加按钮的点击事件监听*/
+    GameMainSceneView.prototype.addSomeEvent = function () {
+        this.playDiceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+    };
+    /**投骰子周期中取消按钮的点击事件监听*/
+    GameMainSceneView.prototype.cancelEvent = function () {
+        this.playDiceBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
     };
     /**获取另外一个容器*/
     GameMainSceneView.prototype.getOtherGroup = function (group) {

@@ -6,7 +6,10 @@ class GameMainSceneView extends eui.Component {
     public childBgGroup2: eui.Group;
     public boat: eui.Image;
     public playDiceBtn: eui.Image;
+    public diceGroup: eui.Group;
 
+    /**骰子动画*/
+    private ani: adapter.ArmatureAnimation = null;
 
     /**当前所在的格子id*/
     public curGridId: number = 50;
@@ -32,7 +35,7 @@ class GameMainSceneView extends eui.Component {
     }
 
     private addEvent(): void {
-        this.playDiceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+        this.addSomeEvent();
     }
 
     private initData(): void {
@@ -48,6 +51,7 @@ class GameMainSceneView extends eui.Component {
     }
 
     private initStaticView(): void {
+        this.diceGroup.visible = false;
         adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn);
     }
 
@@ -55,6 +59,8 @@ class GameMainSceneView extends eui.Component {
         this.setGroupPos();
         this.addImgToGroup(this.childBgGroup1);
         this.addImgToGroup(this.childBgGroup2);
+        this.addGiftBoxToGroup(this.childBgGroup1);
+        this.addGiftBoxToGroup(this.childBgGroup2);
     }
 
     /**设置界面的元素位置状态*/
@@ -85,7 +91,22 @@ class GameMainSceneView extends eui.Component {
             group.addChild(img);
             posY += imgHeightArr[i];
         }
+    }
 
+    /**添加礼品盒icon到背景上*/
+    private addGiftBoxToGroup(group: eui.Group): void{
+        let gridDataArr = GameMainController.getInstance().gridDataArr;
+        for(let i = 0, leng = gridDataArr.length; i < leng; ++i){
+            let gridData = gridDataArr[i];
+            if(gridData.gridEvent === GridEvent.GIFT){
+                let img = new eui.Image("other_13_png");
+                img.x = gridData.posX;
+                img.y = gridData.posY;
+                img.width = img.height = 50;
+                img.anchorOffsetX = img.anchorOffsetY = img.width * 0.5;
+                group.addChild(img);
+            }
+        }
     }
 
     /**检测背容器里面的背景图的位置是否需要调整*/
@@ -158,20 +179,22 @@ class GameMainSceneView extends eui.Component {
 
 
     /**船只移动之后出发的事件*/
-    private triggerEventHandle(): void {
+    private async triggerEventHandle(): Promise<void> {
         let contrl = GameMainController.getInstance();
         let eventId = contrl.gridDataArr[this.curGridId].gridEvent;
         switch (eventId) {
             case GridEvent.FORWARD:
                 {
+                    await adapter.Scheduler.waitForTime(1000);
                     let gridNum = contrl.gridDataArr[this.curGridId].extra;
                     let pathArr = contrl.getPathArr(this.curGridId, gridNum);
-                    this.excutePlayCycle(pathArr);
+                    this.boatMove(pathArr)
                     break;
                 }
 
             case GridEvent.AGAIN:
                 {
+                    await adapter.Scheduler.waitForTime(1000);
                     this.clickBtnHandle();
                     break;
                 }
@@ -179,10 +202,14 @@ class GameMainSceneView extends eui.Component {
             case GridEvent.GIFT:
                 {
                     //todo
+                    this.addSomeEvent();
                     break;
                 }
 
             default:
+                {
+                    this.addSomeEvent();
+                }
                 break;
         }
     }
@@ -190,26 +217,41 @@ class GameMainSceneView extends eui.Component {
 
     /**触发一次投骰子的周期*/
     private async excutePlayCycle(pathArr: number[]): Promise<void> {
+        this.cancelEvent();
         await this.showGridAni(pathArr.length);
         await adapter.Scheduler.waitForTime(100);
-        this.boatMove(pathArr);
+        await this.boatMove(pathArr);
     }
+
+
 
     /**显示投骰子动画*/
     private async showGridAni(num: number): Promise<void> {
-        // let ani = new adapter.ArmatureAnimation();
-        // await ani.initWithName("baoxiang");
-        // // await ani.initWithName("ss1");
-        // ani.x = this.width * 0.5;
-        // ani.y = this.height * 0.5;
-        // this.addChild(ani);
-        // ani.setAnimation(0, "box_open", 1);
-        // // ani.setAnimation(0, num + "", 1);
-        // await ani.waitEvent(adapter.ArmatureAnimation.EVENT_COMPLETE);
-        // // this.removeChild(ani);
+        let ani = this.ani;
+        if (!this.ani) {
+            ani = this.ani = new adapter.ArmatureAnimation();
+            await ani.initWithName("ss1");
+            ani.x = this.width * 0.5;
+            ani.y = this.height * 0.5 + 150;
+        }
+        this.diceGroup.visible = true;
+        this.diceGroup.addChild(ani);
+        ani.setAnimation(0, num + "", 1);
+        await ani.waitEvent(adapter.ArmatureAnimation.EVENT_COMPLETE);
+        await adapter.Scheduler.waitForTime(350);
+        this.diceGroup.removeChild(ani);
+        this.diceGroup.visible = false;
     }
 
+    /**投骰子周期结束添加按钮的点击事件监听*/
+    private addSomeEvent(): void {
+        this.playDiceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+    }
 
+    /**投骰子周期中取消按钮的点击事件监听*/
+    private cancelEvent(): void {
+        this.playDiceBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+    }
 
 
 

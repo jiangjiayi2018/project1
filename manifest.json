@@ -10,7 +10,7 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
-		"bin-debug/adapter/EventDispatcher.js",
+		"bin-debug/adapter/Scheduler.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
@@ -21,9 +21,9 @@
 		"bin-debug/adapter/const.js",
 		"bin-debug/adapter/Dictionary.js",
 		"bin-debug/adapter/DisplayUtil.js",
-		"bin-debug/GameHelp.js",
+		"bin-debug/adapter/EventDispatcher.js",
 		"bin-debug/adapter/Logger.js",
-		"bin-debug/adapter/Scheduler.js",
+		"bin-debug/GameHelp.js",
 		"bin-debug/adapter/SoundManager.js",
 		"bin-debug/adapter/Tween.js",
 		"bin-debug/adapter/UIWindow.js",
@@ -31,6 +31,11 @@
 		"bin-debug/common/TipView.js",
 		"bin-debug/gameMain/controller/GameMainController.js",
 		"bin-debug/gameMain/model/GridDataCell.js",
-		"bin-debug/gameMain/view/GameMainSceneView.js"
+		"bin-debug/gameMain/view/CardGiftView.js",
+		"bin-debug/gameMain/view/GameMainSceneView.js",
+		"bin-debug/gameMain/view/GiftPopView.js",
+		"bin-debug/gameMain/view/InputView.js",
+		"bin-debug/gameMain/view/RulePopView.js",
+		"bin-debug/gameMain/view/TicketGiftView.js"
 	]
 }
