@@ -7,10 +7,11 @@
 		"libs/modules/dragonBones/dragonBones.js",
 		"libs/modules/game/game.js",
 		"libs/modules/tween/tween.js",
-		"libs/modules/promise/promise.js"
+		"libs/modules/promise/promise.js",
+		"libs/modules/cmlib/cmlib.js"
 	],
 	"game": [
-		"bin-debug/adapter/Scheduler.js",
+		"bin-debug/adapter/Tween.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
@@ -22,20 +23,25 @@
 		"bin-debug/adapter/Dictionary.js",
 		"bin-debug/adapter/DisplayUtil.js",
 		"bin-debug/adapter/EventDispatcher.js",
+		"bin-debug/adapter/HttpManage.js",
 		"bin-debug/adapter/Logger.js",
-		"bin-debug/GameHelp.js",
+		"bin-debug/adapter/Scheduler.js",
 		"bin-debug/adapter/SoundManager.js",
-		"bin-debug/adapter/Tween.js",
+		"bin-debug/GameHelp.js",
 		"bin-debug/adapter/UIWindow.js",
 		"bin-debug/adapter/Util.js",
 		"bin-debug/common/TipView.js",
 		"bin-debug/gameMain/controller/GameMainController.js",
+		"bin-debug/gameMain/controller/GameMainHttpManage.js",
+		"bin-debug/gameMain/model/GiftListDataCell.js",
 		"bin-debug/gameMain/model/GridDataCell.js",
 		"bin-debug/gameMain/view/CardGiftView.js",
 		"bin-debug/gameMain/view/GameMainSceneView.js",
+		"bin-debug/gameMain/view/GiftListView.js",
 		"bin-debug/gameMain/view/GiftPopView.js",
-		"bin-debug/gameMain/view/InputView.js",
+		"bin-debug/gameMain/view/InputPopView.js",
 		"bin-debug/gameMain/view/RulePopView.js",
-		"bin-debug/gameMain/view/TicketGiftView.js"
+		"bin-debug/gameMain/view/TicketGiftView.js",
+		"bin-debug/service/index.js"
 	]
 }

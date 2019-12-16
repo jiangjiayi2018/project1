@@ -3,7 +3,12 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 };
 var GameMainController = (function () {
     function GameMainController() {
+        /**格子相关数据*/
         this.gridDataArr = [];
+        /**礼物列表数据*/
+        this.giftListData = [];
+        /**礼品列表弹框对象引用*/
+        this.giftListView = null;
     }
     GameMainController.getInstance = function () {
         if (!GameMainController._instance) {
@@ -24,23 +29,33 @@ var GameMainController = (function () {
     };
     /**显示礼物事件弹框*/
     GameMainController.prototype.showGiftPopView = function () {
-        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+        adapter.UIWindow.getInstance().addView(new GiftPopView());
     };
     /**显示卡卷弹框*/
     GameMainController.prototype.showCardGiftView = function () {
-        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+        // adapter.UIWindow.getInstance().addView(new CardGiftView());
     };
     /**显示门票弹框*/
     GameMainController.prototype.showTickGiftView = function () {
-        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+        // adapter.UIWindow.getInstance().addView(new TicketGiftView());
     };
     /**显示表单信息弹框*/
     GameMainController.prototype.showInputView = function () {
-        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+        adapter.UIWindow.getInstance().addView(new InputPopView());
     };
     /**显示礼品列表弹框*/
     GameMainController.prototype.showGiftListView = function () {
-        // adapter.UIWindow.getInstance().addView(new RulePopView(), adapter.LayerType.TIP);
+        //请求列表数据
+        var view = this.giftListView = new GiftListView();
+        adapter.UIWindow.getInstance().addView(view);
+    };
+    /**关闭礼品列表弹框*/
+    GameMainController.prototype.closeGiftListView = function () {
+        var view = this.giftListView;
+        if (view) {
+            adapter.UIWindow.getInstance().removeView(view);
+            this.giftListView = null;
+        }
     };
     /**判断是否需要显示规则弹框*/
     GameMainController.prototype.isShowRulePop = function () {

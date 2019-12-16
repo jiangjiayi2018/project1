@@ -20,12 +20,18 @@ export interface EventListener {
 export class EventDispatcher {
     private static LOG_TAG: string = "EventDispatcher";
     private listenersMap: NumberDictionary< Array<EventListener> > = {};
+    private static _instance: EventDispatcher = null;
 
     /**
      * constructor
      */
-    constructor() {
+    private constructor() {}
 
+    public static getInstance(): EventDispatcher {
+        if (!EventDispatcher._instance) {
+            EventDispatcher._instance = new EventDispatcher();
+        }
+        return EventDispatcher._instance;
     }
 
     /**

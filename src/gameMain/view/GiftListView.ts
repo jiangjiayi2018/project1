@@ -1,5 +1,7 @@
-
-class GiftListView extends eui.Component {
+/**
+ * 礼品列表显示界面
+ */
+class GiftListView extends eui.Component implements adapter.EventListener {
     public backBtn: eui.Image;
     public contentList: eui.List;
 
@@ -23,6 +25,21 @@ class GiftListView extends eui.Component {
 
     private addEvent(): void {
         this.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closeViewHandle, this);
+        adapter.EventDispatcher.getInstance().addListener(EventId.GET_GIFT_CLOSE_VIEW, this);
+    }
+
+    private removeEvent(): void{
+        adapter.EventDispatcher.getInstance().removeListener(EventId.GET_GIFT_CLOSE_VIEW, this);
+    }
+
+    public handleEvent(code: number, data: any, src: any): void {
+        switch (code) {
+            case EventId.GET_GIFT_CLOSE_VIEW:
+                {
+                    this.closeViewHandle();
+                }
+                break;
+        }
     }
 
     private initView(): void {
@@ -32,7 +49,8 @@ class GiftListView extends eui.Component {
     }
 
     private closeViewHandle(): void {
-        GameMainController.getInstance().closeGiftListView();
+        this.removeEvent();
+        adapter.UIWindow.getInstance().removeView(this);
     }
 }
 
@@ -49,7 +67,7 @@ class GiftListItemView extends eui.ItemRenderer {
     }
 
     private addEvent(): void {
-        adapter.DisplayUtil.addClickAniForBtn(this.getBtn);
+        adapter.DisplayUtil.addClickAniForBtn(this.getBtn, 0.8, 0.8);
         this.getBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.getBtnHandle, this);
     }
 
@@ -62,24 +80,30 @@ class GiftListItemView extends eui.ItemRenderer {
         });
         this.desc.text = data.desc;
         this.timeText.text = data.timeText;
+        this.getBtn.source = data.status === 0 ? "other_22_png" : "other_29_png";
     }
 
     private getBtnHandle(): void {
         let data: GiftListDataCell = this.data;
+        if (data.status !== 0) {
+            alert("此奖品已领取");
+            return;
+        }
         switch (data.giftType) {
             case GiftType.CARD_GIFT:
                 {
-                    GameMainController.getInstance().showCardGiftView();
+                    //领取卡卷
+                    GameMainController.getInstance().getCardGift();
                     break;
                 }
 
             case GiftType.TICKET_GIFT:
                 {
-                    GameMainController.getInstance().showTickGiftView();
+                    GameMainController.getInstance().showInputView(data.userGiftId);
                     break;
                 }
         }
-        GameMainController.getInstance().closeGiftListView();
+        adapter.EventDispatcher.getInstance().dispatch(EventId.GET_GIFT_CLOSE_VIEW, null);
     }
 
 }

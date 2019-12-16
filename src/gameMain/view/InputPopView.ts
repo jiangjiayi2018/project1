@@ -1,3 +1,6 @@
+/**
+ * 领取门票收集表单数据界面
+ */
 class InputPopView extends eui.Component {
     public backBtn: eui.Image;
     public nameInput: eui.EditableText;
@@ -5,8 +8,11 @@ class InputPopView extends eui.Component {
     public mailInput: eui.EditableText;
     public handleBtn: eui.Image;
 
-    public constructor() {
+    private userGiftId: number;
+
+    public constructor(userGiftId: number) {
         super();
+        this.userGiftId = userGiftId;
         this.skinName = "InputViewSkin";
     }
 
@@ -28,18 +34,22 @@ class InputPopView extends eui.Component {
     }
 
     private initView(): void {
-        //设置卡卷icon
     }
 
     private submitHandle(): void {
-        let nameText = this.nameInput.text;
-        let phone = this.phoneInput.text;
-        let maile = this.mailInput.text;
-        if (!nameText || !phone || !maile) {
-            alert("表单信息不全*************");
+        let data = {
+            name: this.nameInput.text,
+            phone: this.phoneInput.text,
+            mail: this.mailInput.text,
+            userGiftId: this.userGiftId
+        }
+        if (!data.name || !data.phone || !data.mail) {
+            alert("提交信息不全！");
             return;
         }
+
         //向后台发送表单提交数据
+        GameMainHttpManage.exchangeGift(data);
         this.closeViewHandle();
     }
 

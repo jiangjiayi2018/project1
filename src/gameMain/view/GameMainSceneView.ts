@@ -1,22 +1,35 @@
 
 /**游戏主玩法界面*/
-class GameMainSceneView extends eui.Component {
+class GameMainSceneView extends eui.Component implements adapter.EventListener {
     public bgGroup: eui.Group;
     public childBgGroup1: eui.Group;
     public childBgGroup2: eui.Group;
     public boat: eui.Image;
     public playDiceBtn: eui.Image;
     public diceGroup: eui.Group;
+    public ruleIcon: eui.Image;
+    public listGroup: eui.Group;
+    public listCount: eui.Label;
+
 
     /**骰子动画*/
     private ani: adapter.ArmatureAnimation = null;
 
-    /**当前所在的格子id*/
-    public curGridId: number = 50;
+    // /**当前所在的格子id*/
+    // public _curGridId: number = 50;
     /**船当前所在的格子所属的容器ID号：1,2*/
     // public curBoatForGroup: eui.Group = null;
     /**放置两个背景图容器的数组*/
     private groupArr: eui.Group[] = null;
+
+    /**当前所在的格子id*/
+    public get curGridId(): number {
+        return GameMainController.getInstance().curGridId;
+    }
+
+    public set curGridId(val) {
+        GameMainController.getInstance().curGridId = val;
+    }
 
     public constructor() {
         super();
@@ -36,6 +49,21 @@ class GameMainSceneView extends eui.Component {
 
     private addEvent(): void {
         this.addSomeEvent();
+        adapter.EventDispatcher.getInstance().addListener(EventId.GET_GIFT_LIST_SUCCESS, this);
+    }
+
+    private removeEvent(): void{
+        adapter.EventDispatcher.getInstance().removeListener(EventId.GET_GIFT_LIST_SUCCESS, this);
+    }
+
+    public handleEvent(code: number, data: any, src: any): void{
+        switch (code) {
+            case EventId.GET_GIFT_LIST_SUCCESS:
+                {
+                    this.listCount.text = `X${GameMainController.getInstance().giftListData.length}`;
+                }
+                break;
+        }
     }
 
     private initData(): void {
@@ -52,7 +80,7 @@ class GameMainSceneView extends eui.Component {
 
     private initStaticView(): void {
         this.diceGroup.visible = false;
-        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn);
+        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn, 0.8, 0.8);
     }
 
     private initBg(): void {
@@ -94,11 +122,11 @@ class GameMainSceneView extends eui.Component {
     }
 
     /**添加礼品盒icon到背景上*/
-    private addGiftBoxToGroup(group: eui.Group): void{
+    private addGiftBoxToGroup(group: eui.Group): void {
         let gridDataArr = GameMainController.getInstance().gridDataArr;
-        for(let i = 0, leng = gridDataArr.length; i < leng; ++i){
+        for (let i = 0, leng = gridDataArr.length; i < leng; ++i) {
             let gridData = gridDataArr[i];
-            if(gridData.gridEvent === GridEvent.GIFT){
+            if (gridData.gridEvent === GridEvent.GIFT) {
                 let img = new eui.Image("other_13_png");
                 img.x = gridData.posX;
                 img.y = gridData.posY;
@@ -172,16 +200,30 @@ class GameMainSceneView extends eui.Component {
     }
 
     /**手动点击之后投骰子的操作*/
-    private clickBtnHandle(): void {
-        let pathArr = GameMainController.getInstance().getPathArr(this.curGridId, adapter.Util.random(1, 7));
-        this.excutePlayCycle(pathArr);
+    private async clickBtnHandle(): Promise<void> {
+        this.cancelEvent();
+        let result = await GameMainHttpManage.requestStartGame();
+        if (result) {
+            let pathArr = GameMainController.getInstance().getPathArr(this.curGridId, adapter.Util.random(1, 7));
+            this.excutePlayCycle(pathArr);
+        } else {
+            this.addSomeEvent();
+        }
     }
+
+
 
 
     /**船只移动之后出发的事件*/
     private async triggerEventHandle(): Promise<void> {
         let contrl = GameMainController.getInstance();
         let eventId = contrl.gridDataArr[this.curGridId].gridEvent;
+
+        //移动结束之后上报给后台
+        if (eventId !== GridEvent.FORWARD) {
+            GameMainHttpManage.requestEndGame(eventId === GridEvent.AGAIN ? 1 : 0);
+        }
+
         switch (eventId) {
             case GridEvent.FORWARD:
                 {
@@ -202,6 +244,7 @@ class GameMainSceneView extends eui.Component {
             case GridEvent.GIFT:
                 {
                     //todo
+
                     this.addSomeEvent();
                     break;
                 }
@@ -217,7 +260,7 @@ class GameMainSceneView extends eui.Component {
 
     /**触发一次投骰子的周期*/
     private async excutePlayCycle(pathArr: number[]): Promise<void> {
-        this.cancelEvent();
+
         await this.showGridAni(pathArr.length);
         await adapter.Scheduler.waitForTime(100);
         await this.boatMove(pathArr);
@@ -246,11 +289,25 @@ class GameMainSceneView extends eui.Component {
     /**投骰子周期结束添加按钮的点击事件监听*/
     private addSomeEvent(): void {
         this.playDiceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+        this.ruleIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.showRulePop, this);
+        this.listGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.showGiftListView, this);
     }
 
     /**投骰子周期中取消按钮的点击事件监听*/
     private cancelEvent(): void {
         this.playDiceBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+        this.ruleIcon.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.showRulePop, this);
+        this.listGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.showGiftListView, this);
+    }
+
+    /**显示规则弹框*/
+    private showRulePop(): void {
+        GameMainController.getInstance().showRulePopView();
+    }
+
+    /**显示礼品列表弹框*/
+    private showGiftListView(): void {
+        GameMainController.getInstance().showGiftListView();
     }
 
 

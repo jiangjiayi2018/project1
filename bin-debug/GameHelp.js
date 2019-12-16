@@ -12,5 +12,5 @@ var GameHelp = (function () {
     return GameHelp;
 }());
 exports.GameHelp = GameHelp;
-__reflect(GameHelp.prototype, "\"c:/Users/71068/Desktop/\u65B0\u5EFA\u6587\u4EF6\u5939/project1/src/GameHelp\".GameHelp");
+__reflect(GameHelp.prototype, "\"f:/lacey/boatProject/egretProject/src/GameHelp\".GameHelp");
 //# sourceMappingURL=GameHelp.js.map

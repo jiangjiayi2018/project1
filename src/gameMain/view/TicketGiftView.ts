@@ -1,15 +1,16 @@
-
+/**
+ * 获得门票弹框显示界面
+ */
 class TicketGiftView extends eui.Component {
     public ticketImg: eui.Image;
     public tickText: eui.Label;
     public handleBtn: eui.Image;
 
+    private userGiftId: number;
 
-    private tickMsg: {imgPath: string, desc: string};
-
-    public constructor(tickMsg:any) {
+    public constructor(userGiftId: number) {
         super();
-        this.tickMsg = tickMsg;
+        this.userGiftId = userGiftId;
         this.skinName = "TicketGift";
     }
 
@@ -29,14 +30,14 @@ class TicketGiftView extends eui.Component {
     }
 
     private initView(): void {
-        RES.getResByUrl(this.tickMsg.imgPath).then((res) => {
-            this.ticketImg.source = res;
-        });
-        this.tickText.text = this.tickMsg.desc;
+        // RES.getResByUrl(this.tickMsg.imgPath).then((res) => {
+        //     this.ticketImg.source = res;
+        // });
+        // this.tickText.text = this.tickMsg.desc;
     }
 
     private handleBtnHandle(): void {
-        GameMainController.getInstance().showInputView();
+        GameMainController.getInstance().showInputView(this.userGiftId);
         adapter.UIWindow.getInstance().removeView(this);
     }
 }

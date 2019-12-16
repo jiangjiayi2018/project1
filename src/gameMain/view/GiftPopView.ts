@@ -1,4 +1,6 @@
-
+/**
+ * 获得礼品弹框显示界面
+ */
 class GiftPopView extends eui.Component {
     public openBtn: eui.Image;
 
@@ -26,19 +28,20 @@ class GiftPopView extends eui.Component {
 
     }
 
-    private openwHandle(): void {
+    private async openwHandle(): Promise<void> {
+        let openResult = await GameMainHttpManage.getGift();
         //判断是卡卷还是门票；
-        let type: GiftType;
+        let type: GiftType = openResult.type;
         switch (type) {
             case GiftType.CARD_GIFT:
                 {
-                    GameMainController.getInstance().showCardGiftView();
+                    GameMainController.getInstance().showCardGiftView(openResult.msg);
                     break;
                 }
 
             case GiftType.TICKET_GIFT:
                 {
-                    GameMainController.getInstance().showTickGiftView();
+                    GameMainController.getInstance().showTickGiftView(openResult.msg);
                     break;
                 }
         }
@@ -52,9 +55,9 @@ class GiftPopView extends eui.Component {
 
 /**礼物类型*/
 const enum GiftType {
-    /**卡卷*/
-    CARD_GIFT,
     /**门票*/
-    TICKET_GIFT
+    TICKET_GIFT = 1,
+    /**卡卷*/
+    CARD_GIFT = 2
 }
 

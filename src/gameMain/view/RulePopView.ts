@@ -1,3 +1,6 @@
+/**
+ * 游戏规则弹框界面
+ */
 class RulePopView extends eui.Component {
     public textScrol: eui.Scroller;
     public textGroup: eui.Group;

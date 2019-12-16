@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,other_10_png,other_11_png,other_12_png,other_14_png,other_15_png,other_13_png,other_51_png,other_16_png,other_52_png,other_53_png,other_54_png,other_55_png,other_1_png,other_2_png,other_3_png,other_4_png,other_5_png,other_6_png,other_7_png,other_8_png,other_9_png,mainBg_4_png,mainBg_1_png,mainBg_2_png,mainBg_3_png,grid_json,other_17_jpg,other_21_png,other_20_png,other_19_png,other_24_png,other_22_png,other_23_png,other_18_png,other_25_png,other_26_png,other_27_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,other_10_png,other_11_png,other_12_png,other_14_png,other_15_png,other_13_png,other_51_png,other_16_png,other_52_png,other_53_png,other_54_png,other_55_png,other_1_png,other_2_png,other_3_png,other_4_png,other_5_png,other_6_png,other_7_png,other_8_png,other_9_png,mainBg_4_png,mainBg_1_png,mainBg_2_png,mainBg_3_png,grid_json,other_17_jpg,other_21_png,other_20_png,other_19_png,other_24_png,other_22_png,other_23_png,other_18_png,other_25_png,other_26_png,other_27_png,other_28_png,other_29_png",
 			"name": "preload"
 		},
 		{
@@ -373,6 +373,16 @@
 			"url": "other/other_27.png",
 			"type": "image",
 			"name": "other_27_png"
+		},
+		{
+			"url": "other/other_28.png",
+			"type": "image",
+			"name": "other_28_png"
+		},
+		{
+			"url": "other/other_29.png",
+			"type": "image",
+			"name": "other_29_png"
 		}
 	]
 }

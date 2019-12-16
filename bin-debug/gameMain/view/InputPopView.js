@@ -20,15 +20,28 @@ var InputPopView = (function (_super) {
         this.init();
     };
     InputPopView.prototype.init = function () {
+        adapter.DisplayUtil.addClickAniForBtn(this.backBtn);
         adapter.DisplayUtil.addClickAniForBtn(this.handleBtn);
         this.initView();
         this.addEvent();
     };
     InputPopView.prototype.addEvent = function () {
-        this.handleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closeViewHandle, this);
+        this.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closeViewHandle, this);
+        this.handleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.submitHandle, this);
     };
     InputPopView.prototype.initView = function () {
         //设置卡卷icon
+    };
+    InputPopView.prototype.submitHandle = function () {
+        var nameText = this.nameInput.text;
+        var phone = this.phoneInput.text;
+        var maile = this.mailInput.text;
+        if (!nameText || !phone || !maile) {
+            alert("表单信息不全*************");
+            return;
+        }
+        //向后台发送表单提交数据
+        this.closeViewHandle();
     };
     InputPopView.prototype.closeViewHandle = function () {
         adapter.UIWindow.getInstance().removeView(this);
@@ -36,4 +49,4 @@ var InputPopView = (function (_super) {
     return InputPopView;
 }(eui.Component));
 __reflect(InputPopView.prototype, "InputPopView");
-//# sourceMappingURL=InputView.js.map
+//# sourceMappingURL=InputPopView.js.map

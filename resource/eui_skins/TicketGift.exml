@@ -4,7 +4,7 @@
 	<e:Group horizontalCenter="0" verticalCenter="-70">
 		<e:Image y="0" source="other_19_png" horizontalCenter="0"/>
 		<e:Image id="ticketImg" source="other_51_png" y="117.5" width="450" height="250" x="0"/>
-		<e:Label id="tickText" text="恭喜啊打发开始打飞机阿迪斯发到付打发手动阀" y="422" width="400" textAlign="center" x="25"/>
+		<e:Label id="tickText" text="获得《江苏卫视2020跨年演唱会》门票1张" y="422" width="461.33" textAlign="center" anchorOffsetX="0" horizontalCenter="0" textColor="0xa86363"/>
 	</e:Group>
 	<e:Image id="handleBtn" source="other_1_png" anchorOffsetX="130" anchorOffsetY="58" horizontalCenter="0" verticalCenter="293.5"/>
 </e:Skin>

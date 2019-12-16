@@ -10,13 +10,15 @@ class GameMainController {
         return GameMainController._instance;
     }
 
-
+    /**当前所在的格子id*/
+    public curGridId: number = 50;
     /**格子相关数据*/
     public gridDataArr: GridDataCell[] = [];
     /**礼物列表数据*/
     public giftListData: GiftListDataCell[] = [];
-    /**礼品列表弹框对象引用*/
-    private giftListView: GiftListView = null;
+
+    /**游戏id  游戏结束和抽奖接口需要提交*/
+    public gameId: number;
 
     /**显示游戏主界面*/
     public showMainView(): void {
@@ -37,36 +39,28 @@ class GameMainController {
     }
 
     /**显示卡卷弹框*/
-    public showCardGiftView(): void {
-        adapter.UIWindow.getInstance().addView(new CardGiftView());
+    public showCardGiftView(cardId: number): void {
+        adapter.UIWindow.getInstance().addView(new CardGiftView(cardId));
     }
 
     /**显示门票弹框*/
-    public showTickGiftView(): void {
-        adapter.UIWindow.getInstance().addView(new TicketGiftView());
+    public showTickGiftView(userGiftId: number): void {
+        adapter.UIWindow.getInstance().addView(new TicketGiftView(userGiftId));
     }
 
     /**显示表单信息弹框*/
-    public showInputView(): void {
-        adapter.UIWindow.getInstance().addView(new InputPopView());
+    public showInputView(userGiftId: number): void {
+        adapter.UIWindow.getInstance().addView(new InputPopView(userGiftId));
     }
 
-    
+
     /**显示礼品列表弹框*/
     public showGiftListView(): void {
-        //请求列表数据
-        let view = this.giftListView = new GiftListView();
-        adapter.UIWindow.getInstance().addView(view);
+        GameMainHttpManage.getGiftList().then(() => {
+            adapter.UIWindow.getInstance().addView(new GiftListView());
+        });
     }
 
-    /**关闭礼品列表弹框*/
-    public closeGiftListView(): void {
-        let view = this.giftListView;
-        if (view) {
-            adapter.UIWindow.getInstance().removeView(view);
-            this.giftListView = null;
-        }
-    }
 
     /**判断是否需要显示规则弹框*/
     private isShowRulePop(): boolean {
@@ -97,5 +91,14 @@ class GameMainController {
             curGridId = gridId;
         }
         return tempArr;
+    }
+
+    /**领取卡卷流程操作*/
+    public async getCardGift(): Promise<void>{
+        let result = await GameMainHttpManage.getCardData();
+        //调用微信sdk
+
+        //通知后台领取卡卷成功
+        GameMainHttpManage.exchangeGift({userGiftId: result.data.userGiftId});
     }
 }

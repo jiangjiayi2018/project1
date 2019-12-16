@@ -1,12 +1,15 @@
+/**
+ * 获得卡卷弹框显示界面
+ */
 class CardGiftView extends eui.Component {
     public cardIcon: eui.Image;
     public handleBtn: eui.Image;
 
-    private cardType: number;
+    private cardId: number;
 
-    public constructor(cardType: number) {
+    public constructor(cardId: number) {
         super();
-        this.cardType = cardType;
+        this.cardId = cardId;
         this.skinName = "CardGift";
     }
 
@@ -27,6 +30,7 @@ class CardGiftView extends eui.Component {
 
     private initView(): void {
         //设置卡卷icon
+        this.cardIcon.source = `other_5${this.cardId}_png`;
     }
 
     private closeViewHandle(): void {
