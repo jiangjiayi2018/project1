@@ -29,6 +29,8 @@ class GiftPopView extends eui.Component {
     }
 
     private async openwHandle(): Promise<void> {
+        this.openBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.openwHandle, this);
+        adapter.SoundManager.playSoundAsync(sound.openGift);
         GameMainHttpManage.reportData(DataReportType.OPEN_GIFT);
         let openResult = await GameMainHttpManage.getGift();
         /**刷新列表数量*/

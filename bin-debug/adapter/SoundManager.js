@@ -109,8 +109,8 @@ var adapter;
             if (position === void 0) { position = 0; }
             var channel;
             if (this.mSoundEnabled) {
-                var sound = adapter.AssetsMgr.getRes(resName.replace(/\./g, '_'));
-                if (channel = sound ? sound.play(position, loop) : null) {
+                var sound_1 = adapter.AssetsMgr.getRes(resName.replace(/\./g, '_'));
+                if (channel = sound_1 ? sound_1.play(position, loop) : null) {
                     this.mSoundChannels.push(channel);
                     channel.volume = this.mSoundVolume;
                     channel.once(egret.Event.SOUND_COMPLETE, this.onSoundComplete, this);
@@ -215,8 +215,8 @@ var adapter;
          */
         SoundManager.stopAllSound = function () {
             for (var _i = 0, _a = this.mSoundChannels; _i < _a.length; _i++) {
-                var sound = _a[_i];
-                sound.stop();
+                var sound_2 = _a[_i];
+                sound_2.stop();
             }
             this.mSoundChannels.length = 0;
         };

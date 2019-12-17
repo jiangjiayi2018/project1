@@ -199,8 +199,9 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         await adapter.Scheduler.waitForTime(500);
     }
 
-    /**手动点击之后投骰子的操作*/
-    private async clickBtnHandle(): Promise<void> {
+    /**一次投骰子的操作*/
+    private async playDiceHandle(): Promise<void> {
+        
         GameMainHttpManage.reportData(DataReportType.CLICK_DICE);
         this.cancelEvent();
         let result = await GameMainHttpManage.requestStartGame();
@@ -212,7 +213,11 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         }
     }
 
-
+    /**手动点击之后投骰子的操作*/
+    private clickBtnHandle(): void{
+        // adapter.SoundManager.playSoundAsync(sound.clickDice);
+        this.playDiceHandle();
+    }
 
 
     /**船只移动之后出发的事件*/
@@ -228,6 +233,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         switch (eventId) {
             case GridEvent.FORWARD:
                 {
+                    adapter.SoundManager.playSoundAsync(sound.touchOtherEvent);
                     await adapter.Scheduler.waitForTime(1000);
                     let gridNum = contrl.gridDataArr[this.curGridId].extra;
                     let pathArr = contrl.getPathArr(this.curGridId, gridNum);
@@ -237,14 +243,16 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
             case GridEvent.AGAIN:
                 {
+                    adapter.SoundManager.playSoundAsync(sound.touchOtherEvent);
                     await adapter.Scheduler.waitForTime(1000);
-                    this.clickBtnHandle();
+                    this.playDiceHandle();
                     break;
                 }
 
             case GridEvent.GIFT:
                 {
                     //todo
+                    adapter.SoundManager.playSoundAsync(sound.touchGiftBox);
                     GameMainController.getInstance().showGiftPopView();
                     this.addSomeEvent();
                     break;
@@ -261,16 +269,15 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
     /**触发一次投骰子的周期*/
     private async excutePlayCycle(pathArr: number[]): Promise<void> {
-
         await this.showGridAni(pathArr.length);
         await adapter.Scheduler.waitForTime(100);
         await this.boatMove(pathArr);
     }
 
 
-
     /**显示投骰子动画*/
     private async showGridAni(num: number): Promise<void> {
+        adapter.SoundManager.playSound(sound.clickDice);
         let ani = this.ani;
         if (!this.ani) {
             ani = this.ani = new adapter.ArmatureAnimation();
@@ -311,21 +318,10 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         GameMainController.getInstance().showGiftListView();
     }
 
-
-
     /**获取另外一个容器*/
     private getOtherGroup(group: eui.Group): eui.Group {
         return group === this.childBgGroup1 ? this.childBgGroup2 : this.childBgGroup1;
     }
-
-    // /**获取格子坐标在当前bgGroup容器里面的坐标值*/
-    // private getGridLocalPos(gridId: number, parentGroup: eui.Group): egret.Point {
-    //     let gridPos = this.getGridPos(gridId);
-    //     let tempPos = parentGroup.localToGlobal(gridPos.x, gridPos.y);
-    //     let tempPos1 = this.bgGroup.globalToLocal(tempPos.x, tempPos.y);
-    //     return tempPos1;
-    // }
-
 
     /**获取格子的坐标值*/
     private getGridPos(gridId: number): egret.Point {

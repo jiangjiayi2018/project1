@@ -62,6 +62,7 @@ var GameMainController = (function () {
     /**显示游戏主界面*/
     GameMainController.prototype.showMainView = function () {
         adapter.UIWindow.getInstance().addView(new GameMainSceneView());
+        adapter.SoundManager.playMusicAsync(sound.bg);
         if (this.isShowRulePop()) {
             this.showRulePopView();
         }

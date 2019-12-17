@@ -97,6 +97,7 @@ class Main extends eui.UILayer {
     private async gotoGameScene(): Promise<void> {
         let result = await this.loginHandle();
         if (result) {
+            this._bgMusicControlPlay();
             GameMainController.getInstance().showMainView();
             GameMainHttpManage.reportData(DataReportType.OPEN_VIEW);
         }
@@ -104,6 +105,21 @@ class Main extends eui.UILayer {
 
     private async loginHandle(): Promise<boolean> {
         return GameMainHttpManage.getUserInfo();
+    }
+
+    private _bgMusicControlPlay() {
+        this.stage.addEventListener(egret.Event.ACTIVATE, this.activeMusic, this);
+        this.stage.addEventListener(egret.Event.DEACTIVATE, this.deactivateMusic, this);
+    }
+
+    private activeMusic() {
+        adapter.SoundManager.musicEnabled = true;
+        adapter.SoundManager.soundEnabled = true;
+    }
+
+    private deactivateMusic() {
+        adapter.SoundManager.musicEnabled = false;
+        adapter.SoundManager.soundEnabled = false;
     }
 
 

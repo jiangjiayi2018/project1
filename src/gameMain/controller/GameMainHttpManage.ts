@@ -22,7 +22,7 @@ class GameMainHttpManage {
         } else if (res.status === 1005) {
             GameMainController.getInstance().showTip("游戏当前次数已用尽");
         } else {
-            GameMainController.getInstance().showTip("当前系统发生故障");
+            GameMainController.getInstance().showTip(res.msg);
         }
         return false;
     }
@@ -38,7 +38,7 @@ class GameMainHttpManage {
         if (res.status === 200) {
             return true;
         } else {
-            GameMainController.getInstance().showTip("游戏结束接口出错");
+            GameMainController.getInstance().showTip(res.msg);
         }
         return false;
     }
@@ -65,7 +65,7 @@ class GameMainHttpManage {
         } else if (res.status === 2003) {
             GameMainController.getInstance().showTip("谢谢参与");
         } else {
-            GameMainController.getInstance().showTip("游戏结束接口出错");
+            GameMainController.getInstance().showTip(res.msg);
         }
         return null;
     }
@@ -82,7 +82,7 @@ class GameMainHttpManage {
             GameMainController.getInstance().giftListData = tempArr;
             adapter.EventDispatcher.getInstance().dispatch(EventId.GET_GIFT_LIST_SUCCESS, null);
         } else {
-            GameMainController.getInstance().showTip("用户奖品列表接口出错");
+            GameMainController.getInstance().showTip(res.msg);
         }
     }
 
@@ -106,7 +106,7 @@ class GameMainHttpManage {
             GameMainController.getInstance().showTip("信息提交成功！");
             return true;
         } else {
-            GameMainController.getInstance().showTip("兑换奖品接口出错");
+            GameMainController.getInstance().showTip(res.msg);
         }
         return false;
     }
@@ -120,7 +120,7 @@ class GameMainHttpManage {
         if (res.status === 200) {
             return res;
         } else {
-            GameMainController.getInstance().showTip("获取卡卷数据接口出错");
+            GameMainController.getInstance().showTip(res.msg);
         }
         return null;
     }

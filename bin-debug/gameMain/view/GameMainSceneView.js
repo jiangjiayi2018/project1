@@ -240,8 +240,8 @@ var GameMainSceneView = (function (_super) {
             });
         });
     };
-    /**手动点击之后投骰子的操作*/
-    GameMainSceneView.prototype.clickBtnHandle = function () {
+    /**一次投骰子的操作*/
+    GameMainSceneView.prototype.playDiceHandle = function () {
         return __awaiter(this, void 0, void 0, function () {
             var result, pathArr;
             return __generator(this, function (_a) {
@@ -264,6 +264,11 @@ var GameMainSceneView = (function (_super) {
             });
         });
     };
+    /**手动点击之后投骰子的操作*/
+    GameMainSceneView.prototype.clickBtnHandle = function () {
+        adapter.SoundManager.playSoundAsync(sound.clickDice);
+        this.playDiceHandle();
+    };
     /**船只移动之后出发的事件*/
     GameMainSceneView.prototype.triggerEventHandle = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -284,21 +289,26 @@ var GameMainSceneView = (function (_super) {
                             case 3 /* GIFT */: return [3 /*break*/, 5];
                         }
                         return [3 /*break*/, 6];
-                    case 1: return [4 /*yield*/, adapter.Scheduler.waitForTime(1000)];
+                    case 1:
+                        adapter.SoundManager.playSoundAsync(sound.touchOtherEvent);
+                        return [4 /*yield*/, adapter.Scheduler.waitForTime(1000)];
                     case 2:
                         _b.sent();
                         gridNum = contrl.gridDataArr[this.curGridId].extra;
                         pathArr = contrl.getPathArr(this.curGridId, gridNum);
                         this.boatMove(pathArr);
                         return [3 /*break*/, 7];
-                    case 3: return [4 /*yield*/, adapter.Scheduler.waitForTime(1000)];
+                    case 3:
+                        adapter.SoundManager.playSoundAsync(sound.touchOtherEvent);
+                        return [4 /*yield*/, adapter.Scheduler.waitForTime(1000)];
                     case 4:
                         _b.sent();
-                        this.clickBtnHandle();
+                        this.playDiceHandle();
                         return [3 /*break*/, 7];
                     case 5:
                         {
                             //todo
+                            adapter.SoundManager.playSoundAsync(sound.touchGiftBox);
                             GameMainController.getInstance().showGiftPopView();
                             this.addSomeEvent();
                             return [3 /*break*/, 7];
@@ -390,13 +400,6 @@ var GameMainSceneView = (function (_super) {
     GameMainSceneView.prototype.getOtherGroup = function (group) {
         return group === this.childBgGroup1 ? this.childBgGroup2 : this.childBgGroup1;
     };
-    // /**获取格子坐标在当前bgGroup容器里面的坐标值*/
-    // private getGridLocalPos(gridId: number, parentGroup: eui.Group): egret.Point {
-    //     let gridPos = this.getGridPos(gridId);
-    //     let tempPos = parentGroup.localToGlobal(gridPos.x, gridPos.y);
-    //     let tempPos1 = this.bgGroup.globalToLocal(tempPos.x, tempPos.y);
-    //     return tempPos1;
-    // }
     /**获取格子的坐标值*/
     GameMainSceneView.prototype.getGridPos = function (gridId) {
         var gridData = GameMainController.getInstance().gridDataArr[gridId];

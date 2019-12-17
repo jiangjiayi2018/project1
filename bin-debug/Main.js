@@ -166,6 +166,7 @@ var Main = (function (_super) {
                     case 1:
                         result = _a.sent();
                         if (result) {
+                            this._bgMusicControlPlay();
                             GameMainController.getInstance().showMainView();
                             GameMainHttpManage.reportData(1 /* OPEN_VIEW */);
                         }
@@ -180,6 +181,18 @@ var Main = (function (_super) {
                 return [2 /*return*/, GameMainHttpManage.getUserInfo()];
             });
         });
+    };
+    Main.prototype._bgMusicControlPlay = function () {
+        this.stage.addEventListener(egret.Event.ACTIVATE, this.activeMusic, this);
+        this.stage.addEventListener(egret.Event.DEACTIVATE, this.deactivateMusic, this);
+    };
+    Main.prototype.activeMusic = function () {
+        adapter.SoundManager.musicEnabled = true;
+        adapter.SoundManager.soundEnabled = true;
+    };
+    Main.prototype.deactivateMusic = function () {
+        adapter.SoundManager.musicEnabled = false;
+        adapter.SoundManager.soundEnabled = false;
     };
     return Main;
 }(eui.UILayer));
