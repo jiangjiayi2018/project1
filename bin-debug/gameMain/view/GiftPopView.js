@@ -72,9 +72,13 @@ var GiftPopView = (function (_super) {
             var openResult, type;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, GameMainHttpManage.getGift()];
+                    case 0:
+                        GameMainHttpManage.reportData(4 /* OPEN_GIFT */);
+                        return [4 /*yield*/, GameMainHttpManage.getGift()];
                     case 1:
                         openResult = _a.sent();
+                        /**刷新列表数量*/
+                        GameMainHttpManage.getGiftList();
                         type = openResult && openResult.type;
                         switch (type) {
                             case 2 /* CARD_GIFT */:

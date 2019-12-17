@@ -3,7 +3,9 @@
  */
 class GiftListView extends eui.Component implements adapter.EventListener {
     public backBtn: eui.Image;
+    public scr: eui.Scroller;
     public contentList: eui.List;
+
 
     private arrayCollection: eui.ArrayCollection = new eui.ArrayCollection();
 
@@ -28,7 +30,7 @@ class GiftListView extends eui.Component implements adapter.EventListener {
         adapter.EventDispatcher.getInstance().addListener(EventId.GET_GIFT_CLOSE_VIEW, this);
     }
 
-    private removeEvent(): void{
+    private removeEvent(): void {
         adapter.EventDispatcher.getInstance().removeListener(EventId.GET_GIFT_CLOSE_VIEW, this);
     }
 
@@ -43,6 +45,8 @@ class GiftListView extends eui.Component implements adapter.EventListener {
     }
 
     private initView(): void {
+        this.scr.verticalScrollBar.autoVisibility = false;
+        this.scr.verticalScrollBar.visible = false;
         this.contentList.itemRenderer = GiftListItemView;
         this.contentList.dataProvider = this.arrayCollection;
         this.arrayCollection.source = GameMainController.getInstance().giftListData;

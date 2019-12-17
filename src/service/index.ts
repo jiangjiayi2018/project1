@@ -13,16 +13,20 @@ module service {
     export const BASE_URL = 'http://h5.heniw.com/newyear2020';
     const ticketInfo = isLocal ? { ticket: encodeURIComponent('AZPkS5/Mbc7jqzLDtXxQf+wTPV/WVsThE+TCxlvYO9C8/RAaKQ') } : {};
 
-    // export function get(api: string, data?: any): Promise<any> {
+    export async function normalGet(api: string, data?: any): Promise<any> {
 
-    //     let params = ticketInfo;
-    //     if (typeof data === 'object' && Object.keys(data).length > 0) {
-    //         for (let key in data) {
-    //             params[key] = data[key];
-    //         }
-    //     }
-    //     return cm.service.get(BASE_URL + api, params);
-    // }
+        let params = isLocal ? { ticket: encodeURIComponent('AZPkS5/Mbc7jqzLDtXxQf+wTPV/WVsThE+TCxlvYO9C8/RAaKQ') } : {};
+        if (typeof data === 'object' && Object.keys(data).length > 0) {
+            for (let key in data) {
+                params[key] = data[key];
+            }
+        }
+        let url = BASE_URL + api;
+        console.log("请求接口：", url);
+        let res = await cm.service.get(url, params);
+        console.log("请求结果：", res);
+        return res;
+    }
 
     // export function post(api: string, data?: any): Promise<any> {
     //     return cm.service.post(BASE_URL + api, data);
@@ -34,7 +38,16 @@ module service {
     declare let crossRequest;
 
     export function get(api: string, data?: any): Promise<any> {
-        let params = ticketInfo;
+        if(isLocal){
+            return localGet(api, data);
+        }else{
+            return normalGet(api, data);
+        }
+    }
+
+
+    export function localGet(api: string, data?: any): Promise<any> {
+        let params = isLocal ? { ticket: encodeURIComponent('AZPkS5/Mbc7jqzLDtXxQf+wTPV/WVsThE+TCxlvYO9C8/RAaKQ') } : {};
         if (typeof data === 'object' && Object.keys(data).length > 0) {
             for (let key in data) {
                 params[key] = data[key];
@@ -55,7 +68,46 @@ module service {
         });
     }
 
-    
+    // export function normalGet(api: string, data?: any): Promise<any> {
+    //     let params = isLocal ? { ticket: encodeURIComponent('AZPkS5/Mbc7jqzLDtXxQf+wTPV/WVsThE+TCxlvYO9C8/RAaKQ') } : {};
+    //     if (typeof data === 'object' && Object.keys(data).length > 0) {
+    //         for (let key in data) {
+    //             params[key] = data[key];
+    //         }
+    //     }
+    //     return new Promise<any>((resolve, reject) => {
+    //         let request = new egret.HttpRequest();
+    //         let url = BASE_URL + api + "?" + adapter.Util.stringfyParamsByObj(params);
+    //         console.log("请求接口：", url);
+    //         /**设置返回的数据格式*/
+    //         request.responseType = egret.HttpResponseType.TEXT;
+
+    //         request.open(url, egret.HttpMethod.GET);
+
+    //         /**设置请求头参数*/
+    //         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    //         /**请求成功监听*/
+    //         request.addEventListener(egret.Event.COMPLETE, () => {
+    //             resolve(request.response);
+    //         }, null);
+
+
+    //         /**请求失败监听*/
+    //         request.addEventListener(egret.IOErrorEvent.IO_ERROR, (event: egret.IOErrorEvent) => {
+    //             reject(event);
+    //         }, null);
+
+    //         /**发送请求*/
+    //         // if (egret.HttpMethod.POST === requestData.method) {
+    //         //     request.send(requestData.data);
+    //         // } else {
+    //         request.send();
+    //         // }
+    //     });
+    // }
+
+
 
 
 

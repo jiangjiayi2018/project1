@@ -103,6 +103,7 @@ class GameMainHttpManage {
         }
         let res = await service.get('/gift/success', param);
         if (res.status === 200) {
+            GameMainController.getInstance().showTip("信息提交成功！");
             return true;
         } else {
             GameMainController.getInstance().showTip("兑换奖品接口出错");

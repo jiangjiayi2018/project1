@@ -45,6 +45,8 @@ var GiftListView = (function (_super) {
         }
     };
     GiftListView.prototype.initView = function () {
+        this.scr.verticalScrollBar.autoVisibility = false;
+        this.scr.verticalScrollBar.visible = false;
         this.contentList.itemRenderer = GiftListItemView;
         this.contentList.dataProvider = this.arrayCollection;
         this.arrayCollection.source = GameMainController.getInstance().giftListData;

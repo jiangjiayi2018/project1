@@ -59,7 +59,7 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         egret.ImageLoader.crossOrigin = "anonymous";
-        GameMainHttpManage.reportData(DataReportType.OPEN_VIEW);
+
         adapter.UIWindow.getInstance().init(this, new egret.Rectangle(0, 0, this.stage.stageWidth, this.stage.stageHeight));
         await this.loadResource()
         this.gotoGameScene();
@@ -94,17 +94,17 @@ class Main extends eui.UILayer {
     }
 
     /**進入游戲*/
-    private async gotoGameScene(): Promise<void>{
-        GameMainController.getInstance().showMainView();
+    private async gotoGameScene(): Promise<void> {
         let result = await this.loginHandle();
-        // if(!result){
-        //     return;
-        // }
+        if (result) {
+            GameMainController.getInstance().showMainView();
+            GameMainHttpManage.reportData(DataReportType.OPEN_VIEW);
+        }
     }
 
-    private async loginHandle(): Promise<boolean>{
+    private async loginHandle(): Promise<boolean> {
         return GameMainHttpManage.getUserInfo();
     }
 
-    
+
 }

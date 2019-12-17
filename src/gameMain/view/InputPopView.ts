@@ -44,7 +44,7 @@ class InputPopView extends eui.Component {
             userGiftId: this.userGiftId
         }
         if (!data.name || !data.phone || !data.mail) {
-            alert("提交信息不全！");
+            GameMainController.getInstance().showTip("提交信息不全！");
             return;
         }
 

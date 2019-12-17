@@ -49,7 +49,8 @@ var GameMainHttpManage = (function () {
                     case 1:
                         res = _a.sent();
                         if (res.status === 1001) {
-                            window.location.href = service.BASE_URL + "/auth/login?returnUrl=" + service.LOCAL_URL;
+                            // window.location.href = service.BASE_URL + "/auth/login?returnUrl=" + service.LOCAL_URL;
+                            GameMainController.getInstance().showTip(res.msg);
                             return [2 /*return*/, false];
                         }
                         else if (res.status === 200) {
@@ -199,6 +200,7 @@ var GameMainHttpManage = (function () {
                     case 1:
                         res = _a.sent();
                         if (res.status === 200) {
+                            GameMainController.getInstance().showTip("信息提交成功！");
                             return [2 /*return*/, true];
                         }
                         else {
@@ -229,6 +231,29 @@ var GameMainHttpManage = (function () {
                             GameMainController.getInstance().showTip("获取卡卷数据接口出错");
                         }
                         return [2 /*return*/, null];
+                }
+            });
+        });
+    };
+    /**数据上报*/
+    GameMainHttpManage.reportData = function (type) {
+        return __awaiter(this, void 0, void 0, function () {
+            var param, res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        param = {
+                            uid: GameMainController.getInstance().userInfo.data.uid,
+                            act: type
+                        };
+                        return [4 /*yield*/, service.get('/event/do', param)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 200) {
+                        }
+                        else {
+                        }
+                        return [2 /*return*/];
                 }
             });
         });

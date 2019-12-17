@@ -27,7 +27,7 @@
     {
       "name": "promise"
     },
-    {
+		{
 			"name": "cmlib",
 			"path": "../egret-game-lib/cmlib"
 		}

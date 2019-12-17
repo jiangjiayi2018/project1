@@ -247,6 +247,7 @@ var GameMainSceneView = (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        GameMainHttpManage.reportData(3 /* CLICK_DICE */);
                         this.cancelEvent();
                         return [4 /*yield*/, GameMainHttpManage.requestStartGame()];
                     case 1:

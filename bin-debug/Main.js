@@ -78,6 +78,7 @@ var Main = (function (_super) {
     }
     Main.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
+        adapter.Util.LoadJS("vconsole.min.js");
         egret.lifecycle.addLifecycleListener(function (context) {
             // custom lifecycle plugin
         });
@@ -98,20 +99,13 @@ var Main = (function (_super) {
     };
     Main.prototype.runGame = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         egret.ImageLoader.crossOrigin = "anonymous";
-                        return [4 /*yield*/, this.loginHandle()];
-                    case 1:
-                        result = _a.sent();
-                        if (!result) {
-                            return [2 /*return*/];
-                        }
                         adapter.UIWindow.getInstance().init(this, new egret.Rectangle(0, 0, this.stage.stageWidth, this.stage.stageHeight));
                         return [4 /*yield*/, this.loadResource()];
-                    case 2:
+                    case 1:
                         _a.sent();
                         this.gotoGameScene();
                         return [2 /*return*/];
@@ -165,9 +159,18 @@ var Main = (function (_super) {
     /**進入游戲*/
     Main.prototype.gotoGameScene = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var result;
             return __generator(this, function (_a) {
-                GameMainController.getInstance().showMainView();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.loginHandle()];
+                    case 1:
+                        result = _a.sent();
+                        if (result) {
+                            GameMainController.getInstance().showMainView();
+                            GameMainHttpManage.reportData(1 /* OPEN_VIEW */);
+                        }
+                        return [2 /*return*/];
+                }
             });
         });
     };

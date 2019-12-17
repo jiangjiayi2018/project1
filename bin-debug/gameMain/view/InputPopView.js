@@ -43,7 +43,7 @@ var InputPopView = (function (_super) {
             userGiftId: this.userGiftId
         };
         if (!data.name || !data.phone || !data.mail) {
-            alert("提交信息不全！");
+            GameMainController.getInstance().showTip("提交信息不全！");
             return;
         }
         //向后台发送表单提交数据

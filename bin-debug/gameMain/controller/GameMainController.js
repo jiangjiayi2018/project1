@@ -57,6 +57,7 @@ var GameMainController = (function () {
     GameMainController.prototype.setUserInfo = function (obj) {
         this.userInfo = obj;
         this.curGridId = Number(obj.data.mark);
+        localStorage.setItem('uid', obj.data.uid);
     };
     /**显示游戏主界面*/
     GameMainController.prototype.showMainView = function () {
@@ -136,8 +137,15 @@ var GameMainController = (function () {
                     case 1:
                         result = _a.sent();
                         //调用微信sdk
-                        //通知后台领取卡卷成功
-                        GameMainHttpManage.exchangeGift({ userGiftId: result.data.userGiftId });
+                        if (result) {
+                            wx.addCard({
+                                cardList: [result.data.cardInfo],
+                                success: function (res) {
+                                    //通知后台领取卡卷成功
+                                    GameMainHttpManage.exchangeGift({ userGiftId: result.data.userGiftId });
+                                }
+                            });
+                        }
                         return [2 /*return*/];
                 }
             });
