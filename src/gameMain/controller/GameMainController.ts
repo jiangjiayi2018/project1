@@ -117,8 +117,12 @@ class GameMainController {
         let result = await GameMainHttpManage.getCardData(userGiftId);
         //调用微信sdk
         if (result) {
+            let cardExt = egret.Capabilities.os.toLowerCase().indexOf("ios") >= 0 ? JSON.stringify(result.data.cardInfo.cardExt) : result.data.cardInfo.cardExt;
             wx.addCard({
-                cardList: [result.data.cardInfo],
+                cardList: [{
+                    cardId: result.data.cardInfo.cardId,
+                    cardExt: cardExt
+                }],
                 success: (res) => {
                     //通知后台领取卡卷成功
                     GameMainHttpManage.exchangeGift({ userGiftId: result.data.userGiftId });

@@ -201,7 +201,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
     /**一次投骰子的操作*/
     private async playDiceHandle(): Promise<void> {
-        
+        adapter.SoundManager.playSoundAsync(sound.clickDice);
         GameMainHttpManage.reportData(DataReportType.CLICK_DICE);
         this.cancelEvent();
         let result = await GameMainHttpManage.requestStartGame();
@@ -277,7 +277,6 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
     /**显示投骰子动画*/
     private async showGridAni(num: number): Promise<void> {
-        adapter.SoundManager.playSound(sound.clickDice);
         let ani = this.ani;
         if (!this.ani) {
             ani = this.ani = new adapter.ArmatureAnimation();
