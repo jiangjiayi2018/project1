@@ -10,6 +10,23 @@
     <meta name="screen-orientation" content="portrait" />
     <meta name="x5-fullscreen" content="true" />
     <meta name="360-fullscreen" content="true" />
+    <script>
+        // 未登录的话跳转到授权页面
+        var baseURL = location.protocol + "//h5.heniw.com/newyear2020";
+        var xhrWxInfo = new XMLHttpRequest();
+        var isLocal = location.hostname.indexOf('0.0.0.0') > -1 || location.hostname.indexOf('192') > -1 || location.hostname.indexOf('localhost') > -1;
+        xhrWxInfo.open('GET', baseURL + 'user/info', false);
+        xhrWxInfo.onreadystatechange = function (data) {
+            if (xhrWxInfo.readyState == 4 && xhrWxInfo.status == 200) {
+                var status = JSON.parse(xhrWxInfo.response).status;
+                if (status === 1001 && !isLocal) {
+                    const returnUrl = encodeURIComponent(location.href);
+                    location.href = baseURL + '/auth/login?returnUrl=' + returnUrl;
+                }
+            }
+        }
+        xhrWxInfo.send(null);
+    </script>
     <style>
         html, body {
             -ms-touch-action: none;
@@ -23,6 +40,7 @@
 </head>
 
 <body>
+    
     <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
          data-orientation="portrait"
@@ -34,6 +52,44 @@
          data-show-fps="false" data-show-log="false"
          data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
     </div>
+<script type="text/javascript" src="src/cross-request/index.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script>
+        // 设置分享信息
+        (function () {
+            if (!axios) return;
+            var isLocal = location.hostname.indexOf('0.0.0.0') > -1 || location.hostname.indexOf('192') > -1 || location.hostname.indexOf('localhost') > -1;
+            var baseURL = location.protocol + "//h5.heniw.com/newyear2020";
+            axios.defaults.baseURL = baseURL;
+            axios.defaults.headers.get['Content-Type'] = 'application/json';
+            axios.get('/weixin/jssdk').then(function (res) {
+                var jssdkData = res.data.data;
+                jssdkData.jsApiList = ['onMenuShareTimeline', 'onMenuShareAppMessage', 'startRecord', 'stopRecord',
+                    'uploadVoice', 'playVoice', 'stopVoice', 'pauseVoice', 'onVoicePlayEnd', 'addCard'
+                ];
+                wx.config(jssdkData);
+                window.wx = wx;
+                wx.ready(function () {
+                    axios.get('/vote/info').then(function (res) {
+                        var wxInfo = res.data.data;
+                        var shareConfig = {
+                            title: wxInfo.share_title, // 分享标题
+                            desc: wxInfo.share_desc,
+                            link: wxInfo.share_url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: wxInfo.share_image, // 分享图标
+                            success: function () {
+                                axios.get('/event/do?act=2&uid=' + localStorage.uid);
+                            }
+                        }
+                        wx.onMenuShareTimeline(shareConfig);
+                        wx.onMenuShareAppMessage(shareConfig);
+                    });
+                });
+            });
+        } ());
+
+</script>
 <script>
     var loadScript = function (list, callback) {
         var loaded = 0;

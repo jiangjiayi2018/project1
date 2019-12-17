@@ -8,11 +8,14 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+/**
+ * 获得门票弹框显示界面
+ */
 var TicketGiftView = (function (_super) {
     __extends(TicketGiftView, _super);
-    function TicketGiftView(tickMsg) {
+    function TicketGiftView(userGiftId) {
         var _this = _super.call(this) || this;
-        _this.tickMsg = tickMsg;
+        _this.userGiftId = userGiftId;
         _this.skinName = "TicketGift";
         return _this;
     }
@@ -29,14 +32,13 @@ var TicketGiftView = (function (_super) {
         this.handleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.handleBtnHandle, this);
     };
     TicketGiftView.prototype.initView = function () {
-        var _this = this;
-        RES.getResByUrl(this.tickMsg.imgPath).then(function (res) {
-            _this.ticketImg.source = res;
-        });
-        this.tickText.text = this.tickMsg.desc;
+        // RES.getResByUrl(this.tickMsg.imgPath).then((res) => {
+        //     this.ticketImg.source = res;
+        // });
+        // this.tickText.text = this.tickMsg.desc;
     };
     TicketGiftView.prototype.handleBtnHandle = function () {
-        GameMainController.getInstance().showInputView();
+        GameMainController.getInstance().showInputView(this.userGiftId);
         adapter.UIWindow.getInstance().removeView(this);
     };
     return TicketGiftView;

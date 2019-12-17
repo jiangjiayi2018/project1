@@ -339,6 +339,27 @@ var adapter;
             return obj;
         };
         /**
+         * 将object类型的数据序列化为&连接的网络地址参数的形式
+         */
+        Util.stringfyParamsByObj = function (obj) {
+            if (!obj) {
+                return "";
+            }
+            var str = "";
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    var val = obj[key];
+                    if (str) {
+                        str += "&" + key + "=" + val;
+                    }
+                    else {
+                        str += key + "=" + val;
+                    }
+                }
+            }
+            return str;
+        };
+        /**
          * 从数组中随机取出一个元素
          */
         Util.randomPick = function (array) {

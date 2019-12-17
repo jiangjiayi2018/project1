@@ -360,6 +360,27 @@ namespace adapter {
             return obj;
         }
 
+        /**
+         * 将object类型的数据序列化为&连接的网络地址参数的形式 
+         */
+        public static stringfyParamsByObj(obj: any): string {
+            if(!obj){
+                return "";
+            }
+            let str: string = "";
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    let val = obj[key];
+                    if (str) {
+                        str += `&${key}=${val}`;
+                    } else {
+                        str += `${key}=${val}`;
+                    }
+                }
+            }
+            return str;
+        }
+
 
         /**
          * 从数组中随机取出一个元素

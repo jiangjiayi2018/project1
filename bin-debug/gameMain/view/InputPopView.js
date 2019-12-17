@@ -8,10 +8,14 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+/**
+ * 领取门票收集表单数据界面
+ */
 var InputPopView = (function (_super) {
     __extends(InputPopView, _super);
-    function InputPopView() {
+    function InputPopView(userGiftId) {
         var _this = _super.call(this) || this;
+        _this.userGiftId = userGiftId;
         _this.skinName = "InputViewSkin";
         return _this;
     }
@@ -30,17 +34,20 @@ var InputPopView = (function (_super) {
         this.handleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.submitHandle, this);
     };
     InputPopView.prototype.initView = function () {
-        //设置卡卷icon
     };
     InputPopView.prototype.submitHandle = function () {
-        var nameText = this.nameInput.text;
-        var phone = this.phoneInput.text;
-        var maile = this.mailInput.text;
-        if (!nameText || !phone || !maile) {
-            alert("表单信息不全*************");
+        var data = {
+            name: this.nameInput.text,
+            phone: this.phoneInput.text,
+            mail: this.mailInput.text,
+            userGiftId: this.userGiftId
+        };
+        if (!data.name || !data.phone || !data.mail) {
+            alert("提交信息不全！");
             return;
         }
         //向后台发送表单提交数据
+        GameMainHttpManage.exchangeGift(data);
         this.closeViewHandle();
     };
     InputPopView.prototype.closeViewHandle = function () {

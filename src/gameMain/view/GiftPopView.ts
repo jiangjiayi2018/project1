@@ -29,9 +29,10 @@ class GiftPopView extends eui.Component {
     }
 
     private async openwHandle(): Promise<void> {
+        GameMainHttpManage.reportData(DataReportType.OPEN_GIFT);
         let openResult = await GameMainHttpManage.getGift();
         //判断是卡卷还是门票；
-        let type: GiftType = openResult.type;
+        let type: GiftType = openResult && openResult.type;
         switch (type) {
             case GiftType.CARD_GIFT:
                 {

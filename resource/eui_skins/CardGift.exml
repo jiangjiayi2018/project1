@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="CardGift" width="540" height="958" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect left="0" top="0" right="0" bottom="0" alpha="0.7"/>
 	<e:Image source="other_16_png" horizontalCenter="0" top="0"/>
 	<e:Image id="cardIcon" source="other_51_png" horizontalCenter="0" verticalCenter="-69.5"/>
 	<e:Image id="handleBtn" horizontalCenter="0.5" anchorOffsetX="92" anchorOffsetY="40" verticalCenter="366" source="other_3_png"/>

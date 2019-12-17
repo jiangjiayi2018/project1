@@ -64,6 +64,7 @@ class GiftListItemView extends eui.ItemRenderer {
     public constructor() {
         super();
         this.skinName = "GiftListItem";
+        this.addEvent();
     }
 
     private addEvent(): void {
@@ -93,7 +94,7 @@ class GiftListItemView extends eui.ItemRenderer {
             case GiftType.CARD_GIFT:
                 {
                     //领取卡卷
-                    GameMainController.getInstance().getCardGift();
+                    GameMainController.getInstance().getCardGift(data.userGiftId);
                     break;
                 }
 

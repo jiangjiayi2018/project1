@@ -8,6 +8,9 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+/**
+ * 礼品列表显示界面
+ */
 var GiftListView = (function (_super) {
     __extends(GiftListView, _super);
     function GiftListView() {
@@ -27,6 +30,19 @@ var GiftListView = (function (_super) {
     };
     GiftListView.prototype.addEvent = function () {
         this.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closeViewHandle, this);
+        adapter.EventDispatcher.getInstance().addListener(1 /* GET_GIFT_CLOSE_VIEW */, this);
+    };
+    GiftListView.prototype.removeEvent = function () {
+        adapter.EventDispatcher.getInstance().removeListener(1 /* GET_GIFT_CLOSE_VIEW */, this);
+    };
+    GiftListView.prototype.handleEvent = function (code, data, src) {
+        switch (code) {
+            case 1 /* GET_GIFT_CLOSE_VIEW */:
+                {
+                    this.closeViewHandle();
+                }
+                break;
+        }
     };
     GiftListView.prototype.initView = function () {
         this.contentList.itemRenderer = GiftListItemView;
@@ -34,20 +50,22 @@ var GiftListView = (function (_super) {
         this.arrayCollection.source = GameMainController.getInstance().giftListData;
     };
     GiftListView.prototype.closeViewHandle = function () {
-        GameMainController.getInstance().closeGiftListView();
+        this.removeEvent();
+        adapter.UIWindow.getInstance().removeView(this);
     };
     return GiftListView;
 }(eui.Component));
-__reflect(GiftListView.prototype, "GiftListView");
+__reflect(GiftListView.prototype, "GiftListView", ["adapter.EventListener"]);
 var GiftListItemView = (function (_super) {
     __extends(GiftListItemView, _super);
     function GiftListItemView() {
         var _this = _super.call(this) || this;
         _this.skinName = "GiftListItem";
+        _this.addEvent();
         return _this;
     }
     GiftListItemView.prototype.addEvent = function () {
-        adapter.DisplayUtil.addClickAniForBtn(this.getBtn);
+        adapter.DisplayUtil.addClickAniForBtn(this.getBtn, 0.8, 0.8);
         this.getBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.getBtnHandle, this);
     };
     GiftListItemView.prototype.dataChanged = function () {
@@ -59,22 +77,28 @@ var GiftListItemView = (function (_super) {
         });
         this.desc.text = data.desc;
         this.timeText.text = data.timeText;
+        this.getBtn.source = data.status === 0 ? "other_22_png" : "other_29_png";
     };
     GiftListItemView.prototype.getBtnHandle = function () {
         var data = this.data;
+        if (data.status !== 0) {
+            alert("此奖品已领取");
+            return;
+        }
         switch (data.giftType) {
-            case 0 /* CARD_GIFT */:
+            case 2 /* CARD_GIFT */:
                 {
-                    GameMainController.getInstance().showCardGiftView();
+                    //领取卡卷
+                    GameMainController.getInstance().getCardGift(data.userGiftId);
                     break;
                 }
             case 1 /* TICKET_GIFT */:
                 {
-                    GameMainController.getInstance().showTickGiftView();
+                    GameMainController.getInstance().showInputView(data.userGiftId);
                     break;
                 }
         }
-        GameMainController.getInstance().closeGiftListView();
+        adapter.EventDispatcher.getInstance().dispatch(1 /* GET_GIFT_CLOSE_VIEW */, null);
     };
     return GiftListItemView;
 }(eui.ItemRenderer));

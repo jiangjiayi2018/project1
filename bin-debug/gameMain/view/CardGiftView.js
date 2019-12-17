@@ -8,11 +8,14 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+/**
+ * 获得卡卷弹框显示界面
+ */
 var CardGiftView = (function (_super) {
     __extends(CardGiftView, _super);
-    function CardGiftView(cardType) {
+    function CardGiftView(cardId) {
         var _this = _super.call(this) || this;
-        _this.cardType = cardType;
+        _this.cardId = cardId;
         _this.skinName = "CardGift";
         return _this;
     }
@@ -30,6 +33,7 @@ var CardGiftView = (function (_super) {
     };
     CardGiftView.prototype.initView = function () {
         //设置卡卷icon
+        this.cardIcon.source = "other_5" + this.cardId + "_png";
     };
     CardGiftView.prototype.closeViewHandle = function () {
         adapter.UIWindow.getInstance().removeView(this);

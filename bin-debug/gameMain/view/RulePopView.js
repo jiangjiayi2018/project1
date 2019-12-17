@@ -8,6 +8,9 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+/**
+ * 游戏规则弹框界面
+ */
 var RulePopView = (function (_super) {
     __extends(RulePopView, _super);
     function RulePopView() {

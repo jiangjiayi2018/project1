@@ -17,6 +17,12 @@ var adapter;
         function EventDispatcher() {
             this.listenersMap = {};
         }
+        EventDispatcher.getInstance = function () {
+            if (!EventDispatcher._instance) {
+                EventDispatcher._instance = new EventDispatcher();
+            }
+            return EventDispatcher._instance;
+        };
         /**
          * Add a listener to the listener list which listen to the event code.
          * @param code event code.
@@ -78,6 +84,7 @@ var adapter;
             }
         };
         EventDispatcher.LOG_TAG = "EventDispatcher";
+        EventDispatcher._instance = null;
         return EventDispatcher;
     }());
     adapter.EventDispatcher = EventDispatcher;

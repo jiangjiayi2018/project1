@@ -14,7 +14,6 @@ class GiftListDataCell {
         this.desc = obj.name;
         this.timeText = obj.addTime.split(" ")[0];
         this.giftType = obj.type;
-        this.timeText = obj.userGiftId;
         this.status = obj.status;
     }
 

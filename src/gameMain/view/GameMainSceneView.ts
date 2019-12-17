@@ -201,6 +201,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
     /**手动点击之后投骰子的操作*/
     private async clickBtnHandle(): Promise<void> {
+        GameMainHttpManage.reportData(DataReportType.CLICK_DICE);
         this.cancelEvent();
         let result = await GameMainHttpManage.requestStartGame();
         if (result) {
@@ -244,7 +245,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
             case GridEvent.GIFT:
                 {
                     //todo
-
+                    GameMainController.getInstance().showGiftPopView();
                     this.addSomeEvent();
                     break;
                 }

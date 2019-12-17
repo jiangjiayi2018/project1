@@ -50,8 +50,8 @@ var GameMainSceneView = (function (_super) {
         var _this = _super.call(this) || this;
         /**骰子动画*/
         _this.ani = null;
-        /**当前所在的格子id*/
-        _this.curGridId = 50;
+        // /**当前所在的格子id*/
+        // public _curGridId: number = 50;
         /**船当前所在的格子所属的容器ID号：1,2*/
         // public curBoatForGroup: eui.Group = null;
         /**放置两个背景图容器的数组*/
@@ -59,6 +59,17 @@ var GameMainSceneView = (function (_super) {
         _this.skinName = "MainScene";
         return _this;
     }
+    Object.defineProperty(GameMainSceneView.prototype, "curGridId", {
+        /**当前所在的格子id*/
+        get: function () {
+            return GameMainController.getInstance().curGridId;
+        },
+        set: function (val) {
+            GameMainController.getInstance().curGridId = val;
+        },
+        enumerable: true,
+        configurable: true
+    });
     GameMainSceneView.prototype.childrenCreated = function () {
         _super.prototype.childrenCreated.call(this);
         this.init();
@@ -70,6 +81,19 @@ var GameMainSceneView = (function (_super) {
     };
     GameMainSceneView.prototype.addEvent = function () {
         this.addSomeEvent();
+        adapter.EventDispatcher.getInstance().addListener(0 /* GET_GIFT_LIST_SUCCESS */, this);
+    };
+    GameMainSceneView.prototype.removeEvent = function () {
+        adapter.EventDispatcher.getInstance().removeListener(0 /* GET_GIFT_LIST_SUCCESS */, this);
+    };
+    GameMainSceneView.prototype.handleEvent = function (code, data, src) {
+        switch (code) {
+            case 0 /* GET_GIFT_LIST_SUCCESS */:
+                {
+                    this.listCount.text = "X" + GameMainController.getInstance().giftListData.length;
+                }
+                break;
+        }
     };
     GameMainSceneView.prototype.initData = function () {
         GameMainController.getInstance().initGridData();
@@ -83,7 +107,7 @@ var GameMainSceneView = (function (_super) {
     };
     GameMainSceneView.prototype.initStaticView = function () {
         this.diceGroup.visible = false;
-        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn);
+        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn, 0.8, 0.8);
     };
     GameMainSceneView.prototype.initBg = function () {
         this.setGroupPos();
@@ -218,8 +242,26 @@ var GameMainSceneView = (function (_super) {
     };
     /**手动点击之后投骰子的操作*/
     GameMainSceneView.prototype.clickBtnHandle = function () {
-        var pathArr = GameMainController.getInstance().getPathArr(this.curGridId, adapter.Util.random(1, 7));
-        this.excutePlayCycle(pathArr);
+        return __awaiter(this, void 0, void 0, function () {
+            var result, pathArr;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.cancelEvent();
+                        return [4 /*yield*/, GameMainHttpManage.requestStartGame()];
+                    case 1:
+                        result = _a.sent();
+                        if (result) {
+                            pathArr = GameMainController.getInstance().getPathArr(this.curGridId, adapter.Util.random(1, 7));
+                            this.excutePlayCycle(pathArr);
+                        }
+                        else {
+                            this.addSomeEvent();
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**船只移动之后出发的事件*/
     GameMainSceneView.prototype.triggerEventHandle = function () {
@@ -230,6 +272,10 @@ var GameMainSceneView = (function (_super) {
                     case 0:
                         contrl = GameMainController.getInstance();
                         eventId = contrl.gridDataArr[this.curGridId].gridEvent;
+                        //移动结束之后上报给后台
+                        if (eventId !== 1 /* FORWARD */) {
+                            GameMainHttpManage.requestEndGame(eventId === 2 /* AGAIN */ ? 1 : 0);
+                        }
                         _a = eventId;
                         switch (_a) {
                             case 1 /* FORWARD */: return [3 /*break*/, 1];
@@ -252,6 +298,7 @@ var GameMainSceneView = (function (_super) {
                     case 5:
                         {
                             //todo
+                            GameMainController.getInstance().showGiftPopView();
                             this.addSomeEvent();
                             return [3 /*break*/, 7];
                         }
@@ -271,9 +318,7 @@ var GameMainSceneView = (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        this.cancelEvent();
-                        return [4 /*yield*/, this.showGridAni(pathArr.length)];
+                    case 0: return [4 /*yield*/, this.showGridAni(pathArr.length)];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, adapter.Scheduler.waitForTime(100)];
@@ -323,10 +368,22 @@ var GameMainSceneView = (function (_super) {
     /**投骰子周期结束添加按钮的点击事件监听*/
     GameMainSceneView.prototype.addSomeEvent = function () {
         this.playDiceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+        this.ruleIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.showRulePop, this);
+        this.listGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.showGiftListView, this);
     };
     /**投骰子周期中取消按钮的点击事件监听*/
     GameMainSceneView.prototype.cancelEvent = function () {
         this.playDiceBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnHandle, this);
+        this.ruleIcon.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.showRulePop, this);
+        this.listGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.showGiftListView, this);
+    };
+    /**显示规则弹框*/
+    GameMainSceneView.prototype.showRulePop = function () {
+        GameMainController.getInstance().showRulePopView();
+    };
+    /**显示礼品列表弹框*/
+    GameMainSceneView.prototype.showGiftListView = function () {
+        GameMainController.getInstance().showGiftListView();
     };
     /**获取另外一个容器*/
     GameMainSceneView.prototype.getOtherGroup = function (group) {
@@ -346,5 +403,5 @@ var GameMainSceneView = (function (_super) {
     };
     return GameMainSceneView;
 }(eui.Component));
-__reflect(GameMainSceneView.prototype, "GameMainSceneView");
+__reflect(GameMainSceneView.prototype, "GameMainSceneView", ["adapter.EventListener"]);
 //# sourceMappingURL=GameMainSceneView.js.map

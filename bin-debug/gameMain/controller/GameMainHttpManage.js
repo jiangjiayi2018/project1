@@ -39,10 +39,197 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var GameMainHttpManage = (function () {
     function GameMainHttpManage() {
     }
-    GameMainHttpManage.startGame = function () {
+    /**开始游戏请求*/
+    GameMainHttpManage.getUserInfo = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var res;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, service.get('/user/info')];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 1001) {
+                            window.location.href = service.BASE_URL + "/auth/login?returnUrl=" + service.LOCAL_URL;
+                            return [2 /*return*/, false];
+                        }
+                        else if (res.status === 200) {
+                            GameMainController.getInstance().setUserInfo(res);
+                            return [2 /*return*/, true];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**开始游戏请求*/
+    GameMainHttpManage.requestStartGame = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, service.get('/game/start')];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 200) {
+                            GameMainController.getInstance().gameId = res.data.id;
+                            return [2 /*return*/, true];
+                        }
+                        else if (res.status === 1005) {
+                            GameMainController.getInstance().showTip("游戏当前次数已用尽");
+                        }
+                        else {
+                            GameMainController.getInstance().showTip("当前系统发生故障");
+                        }
+                        return [2 /*return*/, false];
+                }
+            });
+        });
+    };
+    /**一次投骰子周期游戏结束请求*/
+    GameMainHttpManage.requestEndGame = function (isAdd) {
+        if (isAdd === void 0) { isAdd = 0; }
+        return __awaiter(this, void 0, void 0, function () {
+            var param, res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        param = {
+                            id: GameMainController.getInstance().gameId,
+                            isAdd: isAdd,
+                            mark: GameMainController.getInstance().curGridId + "",
+                        };
+                        return [4 /*yield*/, service.get('/game/end', param)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 200) {
+                            return [2 /*return*/, true];
+                        }
+                        else {
+                            GameMainController.getInstance().showTip("游戏结束接口出错");
+                        }
+                        return [2 /*return*/, false];
+                }
+            });
+        });
+    };
+    /**获得礼物请求*/
+    GameMainHttpManage.getGift = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var param, res, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        param = {
+                            id: GameMainController.getInstance().gameId
+                        };
+                        return [4 /*yield*/, service.get('/gift/lottery', param)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 200) {
+                            result = {
+                                type: res.data.giftInfo.type,
+                                msg: null
+                            };
+                            if (result.type === 1 /* TICKET_GIFT */) {
+                                result.msg = res.data.userGiftId;
+                            }
+                            else {
+                                result.msg = res.data.giftInfo.giftId;
+                            }
+                            return [2 /*return*/, result];
+                        }
+                        else if (res.status === 2003) {
+                            GameMainController.getInstance().showTip("谢谢参与");
+                        }
+                        else {
+                            GameMainController.getInstance().showTip("游戏结束接口出错");
+                        }
+                        return [2 /*return*/, null];
+                }
+            });
+        });
+    };
+    /**请求礼品列表数据*/
+    GameMainHttpManage.getGiftList = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, list, tempArr, i, leng;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, service.get('/gift/list')];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 200) {
+                            list = res.data.list;
+                            tempArr = [];
+                            for (i = 0, leng = list.length; i < leng; ++i) {
+                                tempArr.push(new GiftListDataCell(list[i]));
+                            }
+                            GameMainController.getInstance().giftListData = tempArr;
+                            adapter.EventDispatcher.getInstance().dispatch(0 /* GET_GIFT_LIST_SUCCESS */, null);
+                        }
+                        else {
+                            GameMainController.getInstance().showTip("用户奖品列表接口出错");
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**兑换奖品*/
+    GameMainHttpManage.exchangeGift = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var param, res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        param = {};
+                        if (data.name) {
+                            param["name"] = data.name;
+                        }
+                        if (data.phone) {
+                            param["mobile"] = data.phone;
+                        }
+                        if (data.mail) {
+                            param["email"] = data.mail;
+                        }
+                        if (data.userGiftId) {
+                            param["userGiftId"] = data.userGiftId;
+                        }
+                        return [4 /*yield*/, service.get('/gift/success', param)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 200) {
+                            return [2 /*return*/, true];
+                        }
+                        else {
+                            GameMainController.getInstance().showTip("兑换奖品接口出错");
+                        }
+                        return [2 /*return*/, false];
+                }
+            });
+        });
+    };
+    /**吊起微信卡卷SDK之前请求后台的接口数据*/
+    GameMainHttpManage.getCardData = function (userGiftId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var param, res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        param = {
+                            userGiftId: userGiftId
+                        };
+                        return [4 /*yield*/, service.get('/gift/get', param)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status === 200) {
+                            return [2 /*return*/, res];
+                        }
+                        else {
+                            GameMainController.getInstance().showTip("获取卡卷数据接口出错");
+                        }
+                        return [2 /*return*/, null];
+                }
             });
         });
     };

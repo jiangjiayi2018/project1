@@ -41,6 +41,7 @@
 		"bin-debug/gameMain/view/GiftPopView.js",
 		"bin-debug/gameMain/view/InputPopView.js",
 		"bin-debug/gameMain/view/RulePopView.js",
+		"bin-debug/gameMain/view/ShowTipPop.js",
 		"bin-debug/gameMain/view/TicketGiftView.js",
 		"bin-debug/service/index.js"
 	]

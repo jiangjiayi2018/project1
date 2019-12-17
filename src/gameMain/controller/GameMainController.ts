@@ -10,6 +10,9 @@ class GameMainController {
         return GameMainController._instance;
     }
 
+    /**登录游戏之后获得的用户信息*/
+    public userInfo: any = null;
+
     /**当前所在的格子id*/
     public curGridId: number = 50;
     /**格子相关数据*/
@@ -20,12 +23,20 @@ class GameMainController {
     /**游戏id  游戏结束和抽奖接口需要提交*/
     public gameId: number;
 
+    /**登录游戏之后获得的用户信息*/
+    public setUserInfo(obj: any): void {
+        this.userInfo = obj;
+        this.curGridId = Number(obj.data.mark);
+        localStorage.setItem('uid', obj.data.uid);
+    }
+
     /**显示游戏主界面*/
     public showMainView(): void {
         adapter.UIWindow.getInstance().addView(new GameMainSceneView());
         if (this.isShowRulePop()) {
             this.showRulePopView();
         }
+        GameMainHttpManage.getGiftList();
     }
 
     /**显示规则弹框*/
@@ -61,6 +72,13 @@ class GameMainController {
         });
     }
 
+    /**显示提示信息*/
+    public showTip(str: string): void {
+        let view = new ShowTipPop();
+        adapter.UIWindow.getInstance().addView(view);
+        view.showTip(str);
+    }
+
 
     /**判断是否需要显示规则弹框*/
     private isShowRulePop(): boolean {
@@ -94,11 +112,19 @@ class GameMainController {
     }
 
     /**领取卡卷流程操作*/
-    public async getCardGift(): Promise<void>{
-        let result = await GameMainHttpManage.getCardData();
+    public async getCardGift(userGiftId: number): Promise<void> {
+        let result = await GameMainHttpManage.getCardData(userGiftId);
         //调用微信sdk
+        if (result) {
+            wx.addCard({
+                cardList: [result.data.cardInfo],
+                success: (res) => {
+                    //通知后台领取卡卷成功
+                    GameMainHttpManage.exchangeGift({ userGiftId: result.data.userGiftId });
+                }
+            });
+        }
 
-        //通知后台领取卡卷成功
-        GameMainHttpManage.exchangeGift({userGiftId: result.data.userGiftId});
+
     }
 }

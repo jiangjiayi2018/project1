@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GiftListItem" width="400" height="66" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="iconImg" source="other_10_png" x="14" y="5" anchorOffsetY="0" height="50" anchorOffsetX="0" width="50"/>
+	<e:Image id="iconImg" source="other_10_png" x="1" y="5" anchorOffsetY="0" height="50" anchorOffsetX="0" width="50"/>
 	<e:Image id="getBtn" x="355" anchorOffsetY="22.5" anchorOffsetX="45" source="other_22_png" scaleX="0.8" scaleY="0.8" verticalCenter="0.5"/>
-	<e:Label id="desc" text="Label" x="75" y="2" size="22" anchorOffsetX="0" width="245"/>
-	<e:Label id="timeText" text="Label" x="75" y="33" size="22" anchorOffsetX="0" width="238"/>
+	<e:Label id="desc" text="Label" x="67" y="2" size="22" anchorOffsetX="0" width="245"/>
+	<e:Label id="timeText" text="Label" x="66" y="33" size="22" anchorOffsetX="0" width="238"/>
 </e:Skin>

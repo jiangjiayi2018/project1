@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShowTipPopSkin" width="540" height="958" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tipGroup" horizontalCenter="0" y="528">
+		<e:Image source="other_31_png" y="0" x="0"/>
+		<e:Label id="tipText" text="Label" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+</e:Skin>
