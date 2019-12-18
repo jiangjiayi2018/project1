@@ -107,7 +107,7 @@ var GameMainSceneView = (function (_super) {
     };
     GameMainSceneView.prototype.initStaticView = function () {
         this.diceGroup.visible = false;
-        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn, 0.8, 0.8);
+        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn);
     };
     GameMainSceneView.prototype.initBg = function () {
         this.setGroupPos();
@@ -185,7 +185,8 @@ var GameMainSceneView = (function (_super) {
         if (nextGridId < 0) {
             nextGridId = gridDataArr.length - 1;
         }
-        this.boat.scaleX = this.getGridPos(curGridId).x < this.getGridPos(nextGridId).x ? 1 : -1;
+        // this.boat.scaleX = this.getGridPos(curGridId).x < this.getGridPos(nextGridId).x ? 1 : -1;
+        this.boat.source = this.getGridPos(curGridId).x < this.getGridPos(nextGridId).x ? "other_32_png" : "other_33_png";
     };
     /**船只移动*/
     GameMainSceneView.prototype.boatMove = function (pathArr) {
@@ -247,6 +248,7 @@ var GameMainSceneView = (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        adapter.SoundManager.playSoundAsync(sound.clickDice);
                         GameMainHttpManage.reportData(3 /* CLICK_DICE */);
                         this.cancelEvent();
                         return [4 /*yield*/, GameMainHttpManage.requestStartGame()];
@@ -266,7 +268,7 @@ var GameMainSceneView = (function (_super) {
     };
     /**手动点击之后投骰子的操作*/
     GameMainSceneView.prototype.clickBtnHandle = function () {
-        adapter.SoundManager.playSoundAsync(sound.clickDice);
+        // adapter.SoundManager.playSoundAsync(sound.clickDice);
         this.playDiceHandle();
     };
     /**船只移动之后出发的事件*/

@@ -5,4 +5,5 @@
 		<e:Image source="loading_2_png" y="0" x="0"/>
 		<e:Image id="loadBar" source="loading_1_png" x="7" scale9Grid="7,2,244,18" anchorOffsetX="0" verticalCenter="0" width="493"/>
 	</e:Group>
+	<e:Label text="加载中" size="24" horizontalCenter="0" bottom="55" textColor="0xdbad78"/>
 </e:Skin>

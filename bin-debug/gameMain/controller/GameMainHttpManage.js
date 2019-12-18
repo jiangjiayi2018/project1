@@ -79,7 +79,7 @@ var GameMainHttpManage = (function () {
                             GameMainController.getInstance().showTip("游戏当前次数已用尽");
                         }
                         else {
-                            GameMainController.getInstance().showTip("当前系统发生故障");
+                            GameMainController.getInstance().showTip(res.msg);
                         }
                         return [2 /*return*/, false];
                 }
@@ -106,7 +106,7 @@ var GameMainHttpManage = (function () {
                             return [2 /*return*/, true];
                         }
                         else {
-                            GameMainController.getInstance().showTip("游戏结束接口出错");
+                            GameMainController.getInstance().showTip(res.msg);
                         }
                         return [2 /*return*/, false];
                 }
@@ -143,7 +143,7 @@ var GameMainHttpManage = (function () {
                             GameMainController.getInstance().showTip("谢谢参与");
                         }
                         else {
-                            GameMainController.getInstance().showTip("游戏结束接口出错");
+                            GameMainController.getInstance().showTip(res.msg);
                         }
                         return [2 /*return*/, null];
                 }
@@ -169,7 +169,7 @@ var GameMainHttpManage = (function () {
                             adapter.EventDispatcher.getInstance().dispatch(0 /* GET_GIFT_LIST_SUCCESS */, null);
                         }
                         else {
-                            GameMainController.getInstance().showTip("用户奖品列表接口出错");
+                            GameMainController.getInstance().showTip(res.msg);
                         }
                         return [2 /*return*/];
                 }
@@ -204,7 +204,7 @@ var GameMainHttpManage = (function () {
                             return [2 /*return*/, true];
                         }
                         else {
-                            GameMainController.getInstance().showTip("兑换奖品接口出错");
+                            GameMainController.getInstance().showTip(res.msg);
                         }
                         return [2 /*return*/, false];
                 }
@@ -228,7 +228,7 @@ var GameMainHttpManage = (function () {
                             return [2 /*return*/, res];
                         }
                         else {
-                            GameMainController.getInstance().showTip("获取卡卷数据接口出错");
+                            GameMainController.getInstance().showTip(res.msg);
                         }
                         return [2 /*return*/, null];
                 }

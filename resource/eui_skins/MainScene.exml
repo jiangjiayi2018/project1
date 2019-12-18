@@ -8,14 +8,14 @@
 		</e:Group>
 		<e:Group id="childBgGroup2" height="4353" y="392" left="0" right="0"/>
 	</e:Group>
-	<e:Image id="boat" source="other_4_png" x="160" anchorOffsetX="83.5" anchorOffsetY="94" y="685"/>
-	<e:Image id="playDiceBtn" anchorOffsetX="154.54" anchorOffsetY="118.19" source="other_28_png" scaleX="0.8" scaleY="0.8" horizontalCenter="0" bottom="4"/>
-	<e:Image id="ruleIcon" source="other_10_png" top="9" left="12"/>
-	<e:Group id="listGroup" right="12" top="9" anchorOffsetX="74" anchorOffsetY="34">
+	<e:Image id="boat" x="228" anchorOffsetX="151.5" anchorOffsetY="151.33" y="742.33" source="other_32_png"/>
+	<e:Image id="playDiceBtn" anchorOffsetX="133.21" anchorOffsetY="104.86" source="other_28_png" horizontalCenter="0.5" bottom="4"/>
+	<e:Image id="ruleIcon" source="other_10_png" top="9" left="12" anchorOffsetX="30.67" anchorOffsetY="29.33"/>
+	<e:Group id="listGroup" right="12" top="9" anchorOffsetX="63.33" anchorOffsetY="28.67">
 		<e:Image source="other_14_png" x="0" y="0"/>
-		<e:Label id="listCount" text="X50" x="71.28" textColor="0x336dea" size="34" verticalCenter="0"/>
+		<e:Label id="listCount" text="X500" x="60.6" textColor="0x336dea" size="26" verticalCenter="0"/>
 	</e:Group>
-	<e:Group id="diceGroup" left="0" top="0" bottom="0" right="0">
-		<e:Image source="other_17_jpg" horizontalCenter="0" verticalCenter="0" alpha="0.75"/>
+	<e:Group id="diceGroup" left="0" top="0" bottom="0" right="0" visible="false">
+		<e:Image alpha="0.75" source="other_17_png" left="0" top="0" bottom="0" right="0"/>
 	</e:Group>
 </e:Skin>

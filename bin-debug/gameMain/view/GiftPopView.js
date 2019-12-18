@@ -73,6 +73,7 @@ var GiftPopView = (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        this.openBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.openwHandle, this);
                         adapter.SoundManager.playSoundAsync(sound.openGift);
                         GameMainHttpManage.reportData(4 /* OPEN_GIFT */);
                         return [4 /*yield*/, GameMainHttpManage.getGift()];

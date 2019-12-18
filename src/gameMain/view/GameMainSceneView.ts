@@ -80,7 +80,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
     private initStaticView(): void {
         this.diceGroup.visible = false;
-        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn, 0.8, 0.8);
+        adapter.DisplayUtil.addClickAniForBtn(this.playDiceBtn);
     }
 
     private initBg(): void {
@@ -166,7 +166,8 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         if (nextGridId < 0) {
             nextGridId = gridDataArr.length - 1;
         }
-        this.boat.scaleX = this.getGridPos(curGridId).x < this.getGridPos(nextGridId).x ? 1 : -1;
+        // this.boat.scaleX = this.getGridPos(curGridId).x < this.getGridPos(nextGridId).x ? 1 : -1;
+        this.boat.source = this.getGridPos(curGridId).x < this.getGridPos(nextGridId).x ? "other_32_png" : "other_33_png";
     }
 
     /**船只移动*/

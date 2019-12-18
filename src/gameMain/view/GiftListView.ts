@@ -72,7 +72,7 @@ class GiftListItemView extends eui.ItemRenderer {
     }
 
     private addEvent(): void {
-        adapter.DisplayUtil.addClickAniForBtn(this.getBtn, 0.8, 0.8);
+        adapter.DisplayUtil.addClickAniForBtn(this.getBtn);
         this.getBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.getBtnHandle, this);
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="RulePop" width="540" height="958" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect fillAlpha="0.8" left="0" right="0" top="0" bottom="0"/>
-	<e:Group y="81.61" horizontalCenter="0">
+	<e:Group horizontalCenter="0" top="94">
 		<e:Image source="other_11_png" y="0" horizontalCenter="0"/>
-		<e:Scroller id="textScrol" width="400" height="483" y="133" horizontalCenter="0">
+		<e:Scroller id="textScrol" width="400" height="483" y="101" horizontalCenter="0">
 			<e:Group id="textGroup" cacheAsBitmap="true">
 				<e:layout>
 					<e:VerticalLayout gap="20" horizontalAlign="center"/>
@@ -11,5 +11,5 @@
 			</e:Group>
 		</e:Scroller>
 	</e:Group>
-	<e:Image id="closeBtn" source="other_7_png" bottom="55" horizontalCenter="0.5" anchorOffsetX="31.82" anchorOffsetY="33.33"/>
+	<e:Image id="closeBtn" source="other_7_png" anchorOffsetX="26.82" anchorOffsetY="27.33" top="731" horizontalCenter="0"/>
 </e:Skin>

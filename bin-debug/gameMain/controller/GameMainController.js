@@ -131,7 +131,7 @@ var GameMainController = (function () {
     /**领取卡卷流程操作*/
     GameMainController.prototype.getCardGift = function (userGiftId) {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
+            var result, cardExt;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, GameMainHttpManage.getCardData(userGiftId)];
@@ -139,8 +139,12 @@ var GameMainController = (function () {
                         result = _a.sent();
                         //调用微信sdk
                         if (result) {
+                            cardExt = egret.Capabilities.os.toLowerCase().indexOf("ios") >= 0 ? JSON.stringify(result.data.cardInfo.cardExt) : result.data.cardInfo.cardExt;
                             wx.addCard({
-                                cardList: [result.data.cardInfo],
+                                cardList: [{
+                                        cardId: result.data.cardInfo.cardId,
+                                        cardExt: cardExt
+                                    }],
                                 success: function (res) {
                                     //通知后台领取卡卷成功
                                     GameMainHttpManage.exchangeGift({ userGiftId: result.data.userGiftId });
