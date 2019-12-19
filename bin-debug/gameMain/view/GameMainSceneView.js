@@ -56,6 +56,7 @@ var GameMainSceneView = (function (_super) {
         // public curBoatForGroup: eui.Group = null;
         /**放置两个背景图容器的数组*/
         _this.groupArr = null;
+        _this.imgArr = [];
         _this.skinName = "MainScene";
         return _this;
     }
@@ -141,6 +142,21 @@ var GameMainSceneView = (function (_super) {
             img.right = 0;
             group.addChild(img);
             posY += imgHeightArr[i];
+            this.imgArr.push(img);
+        }
+    };
+    GameMainSceneView.prototype.setImgVisible = function () {
+        for (var i = 0, leng = this.imgArr.length; i < leng; ++i) {
+            var img = this.imgArr[i];
+            // console.log("-----------",img.visible);
+            var tempPos1 = img.localToGlobal(0, 0);
+            var tempPos2 = img.localToGlobal(0, img.height);
+            if (tempPos1.y > adapter.UIWindow.getInstance().height || tempPos2.y < 0) {
+                img.visible = false;
+            }
+            else {
+                img.visible = true;
+            }
         }
     };
     /**添加礼品盒icon到背景上*/
@@ -191,7 +207,7 @@ var GameMainSceneView = (function (_super) {
     /**船只移动*/
     GameMainSceneView.prototype.boatMove = function (pathArr) {
         return __awaiter(this, void 0, void 0, function () {
-            var i, leng;
+            var i, leng, i, leng, img;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -205,14 +221,27 @@ var GameMainSceneView = (function (_super) {
                         _a.sent();
                         this.curGridId = pathArr[i];
                         this.setBoatDiect();
+                        this.testBgGroup();
+                        this.setImgVisible();
                         _a.label = 3;
                     case 3:
                         ++i;
                         return [3 /*break*/, 1];
                     case 4:
-                        this.testBgGroup();
+                        // this.testBgGroup();
                         //触发可能的事件
                         this.triggerEventHandle();
+                        for (i = 0, leng = this.imgArr.length; i < leng; ++i) {
+                            img = this.imgArr[i];
+                            console.log("-----------", img.visible);
+                            // let tempPos1 = img.localToGlobal(0, 0);
+                            // let tempPos2 = img.localToGlobal(0, img.height);
+                            // if(tempPos1.y > adapter.UIWindow.getInstance().height || tempPos2.y < 0){
+                            // img.visible = false;
+                            // }else{
+                            //     img.visible = true;
+                            // }
+                        }
                         return [2 /*return*/];
                 }
             });

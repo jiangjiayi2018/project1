@@ -22,6 +22,9 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
     /**放置两个背景图容器的数组*/
     private groupArr: eui.Group[] = null;
 
+    /**所有背景图片的数组*/
+    private imgArr: eui.Image[] = [];
+
     /**当前所在的格子id*/
     public get curGridId(): number {
         return GameMainController.getInstance().curGridId;
@@ -52,11 +55,11 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         adapter.EventDispatcher.getInstance().addListener(EventId.GET_GIFT_LIST_SUCCESS, this);
     }
 
-    private removeEvent(): void{
+    private removeEvent(): void {
         adapter.EventDispatcher.getInstance().removeListener(EventId.GET_GIFT_LIST_SUCCESS, this);
     }
 
-    public handleEvent(code: number, data: any, src: any): void{
+    public handleEvent(code: number, data: any, src: any): void {
         switch (code) {
             case EventId.GET_GIFT_LIST_SUCCESS:
                 {
@@ -108,6 +111,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         this.bgGroup.height = posY;
     }
 
+
     private addImgToGroup(group: eui.Group): void {
         let imgHeightArr: number[] = [1030, 1030, 1268, 1025];
         let posY = 0;
@@ -118,6 +122,21 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
             img.right = 0;
             group.addChild(img);
             posY += imgHeightArr[i];
+            this.imgArr.push(img);
+        }
+    }
+
+    /**动态调整所有图片的visible属性*/
+    private setImgVisible(): void {
+        for (let i = 0, leng = this.imgArr.length; i < leng; ++i) {
+            let img: eui.Image = this.imgArr[i];
+            let tempPos1 = img.localToGlobal(0, 0);
+            let tempPos2 = img.localToGlobal(0, img.height);
+            if (tempPos1.y > adapter.UIWindow.getInstance().height || tempPos2.y < 0) {
+                img.visible = false;
+            } else {
+                img.visible = true;
+            }
         }
     }
 
@@ -177,13 +196,13 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
             await this.boatMoveOneCell(pathArr[i - 1], pathArr[i]);
             this.curGridId = pathArr[i];
             this.setBoatDiect();
-            // if (pathArr[i - 1] < pathArr[i]) {
-            //     this.curBoatForGroup = this.getOtherGroup(this.curBoatForGroup);
-            // }
+            this.testBgGroup();
+            this.setImgVisible();
         }
-        this.testBgGroup();
+        // this.testBgGroup();
         //触发可能的事件
         this.triggerEventHandle();
+
 
     }
 
@@ -202,7 +221,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
     /**一次投骰子的操作*/
     private async playDiceHandle(): Promise<void> {
-        
+
         GameMainHttpManage.reportData(DataReportType.CLICK_DICE);
         this.cancelEvent();
         let result = await GameMainHttpManage.requestStartGame();
@@ -215,7 +234,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
     }
 
     /**手动点击之后投骰子的操作*/
-    private clickBtnHandle(): void{
+    private clickBtnHandle(): void {
         // adapter.SoundManager.playSoundAsync(sound.clickDice);
         this.playDiceHandle();
     }
