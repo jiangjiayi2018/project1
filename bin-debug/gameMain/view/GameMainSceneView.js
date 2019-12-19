@@ -135,7 +135,7 @@ var GameMainSceneView = (function (_super) {
         var imgHeightArr = [1030, 1030, 1268, 1025];
         var posY = 0;
         for (var i = 0; i < 4; ++i) {
-            var img = new eui.Image("mainBg_" + (i + 1) + "_png");
+            var img = new eui.Image("mainBg_" + (i + 1) + "_jpg");
             img.y = posY;
             img.left = 0;
             img.right = 0;
@@ -248,7 +248,6 @@ var GameMainSceneView = (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        adapter.SoundManager.playSoundAsync(sound.clickDice);
                         GameMainHttpManage.reportData(3 /* CLICK_DICE */);
                         this.cancelEvent();
                         return [4 /*yield*/, GameMainHttpManage.requestStartGame()];
@@ -362,6 +361,7 @@ var GameMainSceneView = (function (_super) {
                         ani.y = this.height * 0.5 + 150;
                         _a.label = 2;
                     case 2:
+                        adapter.SoundManager.playSound(sound.clickDice);
                         this.diceGroup.visible = true;
                         this.diceGroup.addChild(ani);
                         ani.setAnimation(0, num + "", 1);

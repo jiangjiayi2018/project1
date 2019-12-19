@@ -112,7 +112,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
         let imgHeightArr: number[] = [1030, 1030, 1268, 1025];
         let posY = 0;
         for (let i = 0; i < 4; ++i) {
-            let img = new eui.Image(`mainBg_${i + 1}_png`);
+            let img = new eui.Image(`mainBg_${i + 1}_jpg`);
             img.y = posY;
             img.left = 0;
             img.right = 0;
@@ -202,7 +202,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
 
     /**一次投骰子的操作*/
     private async playDiceHandle(): Promise<void> {
-        adapter.SoundManager.playSoundAsync(sound.clickDice);
+        
         GameMainHttpManage.reportData(DataReportType.CLICK_DICE);
         this.cancelEvent();
         let result = await GameMainHttpManage.requestStartGame();
@@ -285,6 +285,7 @@ class GameMainSceneView extends eui.Component implements adapter.EventListener {
             ani.x = this.width * 0.5;
             ani.y = this.height * 0.5 + 150;
         }
+        adapter.SoundManager.playSound(sound.clickDice);
         this.diceGroup.visible = true;
         this.diceGroup.addChild(ani);
         ani.setAnimation(0, num + "", 1);

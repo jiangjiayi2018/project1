@@ -1,11 +1,11 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,other_10_png,other_11_png,other_12_png,other_14_png,other_15_png,other_13_png,other_51_png,other_16_png,other_52_png,other_53_png,other_54_png,other_55_png,other_1_png,other_2_png,other_3_png,other_5_png,other_6_png,other_7_png,other_8_png,other_9_png,mainBg_4_png,mainBg_1_png,mainBg_2_png,mainBg_3_png,grid_json,other_21_png,other_20_png,other_19_png,other_24_png,other_22_png,other_23_png,other_18_png,other_25_png,other_26_png,other_27_png,other_28_png,other_29_png,other_30_png,other_31_png,bg_mp3,clickDice_mp3,openGift_mp3,touchOtherEvent_mp3,touchGiftBox_mp3,other_17_png,other_32_png,other_33_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,egret_icon_png,description_json,other_10_png,other_11_png,other_12_png,other_14_png,other_15_png,other_13_png,other_51_png,other_16_png,other_52_png,other_53_png,other_54_png,other_55_png,other_1_png,other_2_png,other_3_png,other_5_png,other_6_png,other_7_png,other_8_png,other_9_png,grid_json,other_21_png,other_20_png,other_19_png,other_24_png,other_22_png,other_23_png,other_18_png,other_25_png,other_26_png,other_27_png,other_28_png,other_29_png,other_30_png,other_31_png,bg_mp3,clickDice_mp3,openGift_mp3,touchOtherEvent_mp3,touchGiftBox_mp3,other_17_png,other_32_png,other_33_png,mainBg_4_jpg,mainBg_1_jpg,mainBg_2_jpg,mainBg_3_jpg,ss1_ske_json,ss1_tex_json,ss1_tex_png,loading_bg_jpg",
 			"name": "preload"
 		},
 		{
-			"keys": "loading_bg_png,loading_1_png,loading_2_png",
+			"keys": "loading_1_png,loading_2_png",
 			"name": "loading"
 		},
 		{
@@ -130,11 +130,6 @@
 			"name": "track_sb_png"
 		},
 		{
-			"url": "assets/bg.jpg",
-			"type": "image",
-			"name": "bg_jpg"
-		},
-		{
 			"url": "assets/egret_icon.png",
 			"type": "image",
 			"name": "egret_icon_png"
@@ -143,11 +138,6 @@
 			"url": "config/description.json",
 			"type": "json",
 			"name": "description_json"
-		},
-		{
-			"url": "loading/loading_bg.png",
-			"type": "image",
-			"name": "loading_bg_png"
 		},
 		{
 			"url": "loading/loading_1.png",
@@ -258,26 +248,6 @@
 			"url": "other/other_9.png",
 			"type": "image",
 			"name": "other_9_png"
-		},
-		{
-			"url": "mainBg/mainBg_4.png",
-			"type": "image",
-			"name": "mainBg_4_png"
-		},
-		{
-			"url": "mainBg/mainBg_1.png",
-			"type": "image",
-			"name": "mainBg_1_png"
-		},
-		{
-			"url": "mainBg/mainBg_2.png",
-			"type": "image",
-			"name": "mainBg_2_png"
-		},
-		{
-			"url": "mainBg/mainBg_3.png",
-			"type": "image",
-			"name": "mainBg_3_png"
 		},
 		{
 			"url": "db/ss1_tex.png",
@@ -408,6 +378,31 @@
 			"url": "other/other_33.png",
 			"type": "image",
 			"name": "other_33_png"
+		},
+		{
+			"url": "mainBg/mainBg_4.jpg",
+			"type": "image",
+			"name": "mainBg_4_jpg"
+		},
+		{
+			"url": "mainBg/mainBg_1.jpg",
+			"type": "image",
+			"name": "mainBg_1_jpg"
+		},
+		{
+			"url": "mainBg/mainBg_2.jpg",
+			"type": "image",
+			"name": "mainBg_2_jpg"
+		},
+		{
+			"url": "mainBg/mainBg_3.jpg",
+			"type": "image",
+			"name": "mainBg_3_jpg"
+		},
+		{
+			"url": "loading/loading_bg.jpg",
+			"type": "image",
+			"name": "loading_bg_jpg"
 		}
 	]
 }

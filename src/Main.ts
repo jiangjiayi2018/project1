@@ -61,6 +61,7 @@ class Main extends eui.UILayer {
         egret.ImageLoader.crossOrigin = "anonymous";
 
         adapter.UIWindow.getInstance().init(this, new egret.Rectangle(0, 0, this.stage.stageWidth, this.stage.stageHeight));
+        this._bgMusicControlPlay();
         await this.loadResource()
         this.gotoGameScene();
 
@@ -74,7 +75,8 @@ class Main extends eui.UILayer {
             const loadingView = new LoadingUI();
             adapter.UIWindow.getInstance().addView(loadingView);
             await RES.loadGroup("preload", 0, loadingView);
-            adapter.UIWindow.getInstance().removeView(loadingView);
+            await loadingView.waitHandle();
+            // adapter.UIWindow.getInstance().removeView(loadingView);
         }
         catch (e) {
             console.error(e);
@@ -97,7 +99,7 @@ class Main extends eui.UILayer {
     private async gotoGameScene(): Promise<void> {
         let result = await this.loginHandle();
         if (result) {
-            this._bgMusicControlPlay();
+            
             GameMainController.getInstance().showMainView();
             GameMainHttpManage.reportData(DataReportType.OPEN_VIEW);
         }

@@ -33,7 +33,6 @@ class GameMainController {
     /**显示游戏主界面*/
     public showMainView(): void {
         adapter.UIWindow.getInstance().addView(new GameMainSceneView());
-        adapter.SoundManager.playMusicAsync(sound.bg);
         if (this.isShowRulePop()) {
             this.showRulePopView();
         }

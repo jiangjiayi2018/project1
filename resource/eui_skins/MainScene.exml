@@ -13,7 +13,7 @@
 	<e:Image id="ruleIcon" source="other_10_png" top="9" left="12" anchorOffsetX="30.67" anchorOffsetY="29.33"/>
 	<e:Group id="listGroup" right="12" top="9" anchorOffsetX="63.33" anchorOffsetY="28.67">
 		<e:Image source="other_14_png" x="0" y="0"/>
-		<e:Label id="listCount" text="X500" x="60.6" textColor="0x336dea" size="26" verticalCenter="0"/>
+		<e:Label id="listCount" text="X500" x="60.6" size="26" verticalCenter="0" textColor="0xffffff"/>
 	</e:Group>
 	<e:Group id="diceGroup" left="0" top="0" bottom="0" right="0" visible="false">
 		<e:Image alpha="0.75" source="other_17_png" left="0" top="0" bottom="0" right="0"/>

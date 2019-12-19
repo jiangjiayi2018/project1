@@ -40,6 +40,7 @@ var LoadingUI = (function (_super) {
     __extends(LoadingUI, _super);
     function LoadingUI() {
         var _this = _super.call(this) || this;
+        _this.resolveFun = null;
         _this.skinName = "loading";
         return _this;
     }
@@ -47,11 +48,38 @@ var LoadingUI = (function (_super) {
         _super.prototype.childrenCreated.call(this);
         this.init();
     };
+    /**等待操作完成*/
+    LoadingUI.prototype.waitHandle = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.resolveFun = resolve;
+        });
+    };
+    /**结束等待状态*/
+    LoadingUI.prototype.resolveHandle = function () {
+        adapter.SoundManager.playMusic(sound.bg);
+        adapter.Tween.removeTweens(this.tipText);
+        if (this.resolveFun) {
+            this.resolveFun(true);
+            this.resolveFun = null;
+        }
+        adapter.UIWindow.getInstance().removeView(this);
+    };
     LoadingUI.prototype.init = function () {
         this.loadBar.width = 0;
     };
     LoadingUI.prototype.onProgress = function (current, total) {
         this.loadBar.width = current / total * 493;
+        if (current >= total) {
+            this.proGroup.visible = false;
+            this.tipText.text = "进入游戏";
+            this.tipText.anchorOffsetX = this.tipText.width * 0.5;
+            this.tipText.anchorOffsetY = this.tipText.height * 0.5;
+            adapter.tween(this.tipText).to({ scaleX: 1.1, scaleY: 1.1 }, 200).wait(50)
+                .to({ scaleX: 0.9, scaleY: 0.9 }, 200).wait(50)
+                .loop(-1);
+            this.tipText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.resolveHandle, this);
+        }
     };
     return LoadingUI;
 }(eui.Component));

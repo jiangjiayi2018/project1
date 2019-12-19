@@ -104,6 +104,7 @@ var Main = (function (_super) {
                     case 0:
                         egret.ImageLoader.crossOrigin = "anonymous";
                         adapter.UIWindow.getInstance().init(this, new egret.Rectangle(0, 0, this.stage.stageWidth, this.stage.stageHeight));
+                        this._bgMusicControlPlay();
                         return [4 /*yield*/, this.loadResource()];
                     case 1:
                         _a.sent();
@@ -119,7 +120,7 @@ var Main = (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 5, , 6]);
+                        _a.trys.push([0, 6, , 7]);
                         return [4 /*yield*/, RES.loadConfig("resource/default.res.json", "resource/")];
                     case 1:
                         _a.sent();
@@ -134,13 +135,15 @@ var Main = (function (_super) {
                         return [4 /*yield*/, RES.loadGroup("preload", 0, loadingView)];
                     case 4:
                         _a.sent();
-                        adapter.UIWindow.getInstance().removeView(loadingView);
-                        return [3 /*break*/, 6];
+                        return [4 /*yield*/, loadingView.waitHandle()];
                     case 5:
+                        _a.sent();
+                        return [3 /*break*/, 7];
+                    case 6:
                         e_1 = _a.sent();
                         console.error(e_1);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         });
@@ -166,7 +169,6 @@ var Main = (function (_super) {
                     case 1:
                         result = _a.sent();
                         if (result) {
-                            this._bgMusicControlPlay();
                             GameMainController.getInstance().showMainView();
                             GameMainHttpManage.reportData(1 /* OPEN_VIEW */);
                         }

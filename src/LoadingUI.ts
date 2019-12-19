@@ -28,24 +28,60 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class LoadingUI extends eui.Component implements RES.PromiseTaskReporter {
-    public loadBar:eui.Image;
+    public proGroup: eui.Group;
+    public loadBar: eui.Image;
+    public tipText: eui.Label;
+
+    private resolveFun: (value?: boolean | PromiseLike<boolean>) => void = null;
 
 
     public constructor() {
         super();
         this.skinName = "loading";
+        
     }
 
-    protected childrenCreated(): void{
+    protected childrenCreated(): void {
         super.childrenCreated();
         this.init();
     }
 
-    private init(): void{
+    /**等待操作完成*/
+    public waitHandle(): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.resolveFun = resolve;
+        });
+    }
+
+    /**结束等待状态*/
+    private resolveHandle(): void {
+        adapter.SoundManager.playMusic(sound.bg);
+        adapter.Tween.removeTweens(this.tipText);
+        if (this.resolveFun) {
+            this.resolveFun(true);
+            this.resolveFun = null;
+        }
+        adapter.UIWindow.getInstance().removeView(this);
+    }
+
+    private init(): void {
         this.loadBar.width = 0;
     }
 
     public onProgress(current: number, total: number): void {
-        this.loadBar.width = current/total * 493;
+        this.loadBar.width = current / total * 493;
+        if (current >= total) {
+            this.proGroup.visible = false;
+            this.tipText.text = "进入游戏";
+            this.tipText.anchorOffsetX = this.tipText.width * 0.5;
+            this.tipText.anchorOffsetY = this.tipText.height * 0.5;
+            adapter.tween(this.tipText).to({ scaleX: 1.1, scaleY: 1.1 }, 200).wait(50)
+            .to({ scaleX: 0.9, scaleY: 0.9 }, 200).wait(50)
+            .loop(-1);
+            this.tipText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.resolveHandle, this);
+        }
     }
+
+
+
 }
